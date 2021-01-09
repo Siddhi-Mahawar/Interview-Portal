@@ -74,7 +74,7 @@ def AdminEmailVerification(request):
     if request.method == "POST":
 
         token = get_random_string(length=32)
-        to_email_id_list = [admin_email_id]
+        to_email_id_list = admin_email_id
         send_activation_email(to_email_id_list, token)
 
         admin = get_object_or_404(CompanyAdmin, pk = admin_email_id)
