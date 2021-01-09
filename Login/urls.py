@@ -16,4 +16,7 @@ urlpatterns = [
 
     # /Login/Verify
     path('/verify/', views.AdminEmailVerification, name='admin-email-verification'),
+
+    # /Login/Verify/id
+    path('/verify/<token_value>', views.EmailVerify, name='admin-email-verify'),
 ]
