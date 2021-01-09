@@ -12,4 +12,12 @@ class CompanyAdminForm(forms.ModelForm):
 class LoginForm(forms.Form):
 
     email = forms.EmailField(max_length=250)
-    password = forms.CharField(max_length=16, widget=forms.PasswordInput)        
+    password = forms.CharField(max_length=16, widget=forms.PasswordInput) 
+
+class VerificationForm(forms.Form):
+
+    email = forms.EmailField(max_length=250)
+
+    def __init__(self, email_id, *args,**kwargs):
+        super(VerificationForm,self).__init__(*args,**kwargs)
+        self.fields['email'] = forms.EmailField(initial=email_id)

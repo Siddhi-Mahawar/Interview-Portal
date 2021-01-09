@@ -14,6 +14,6 @@ urlpatterns = [
     # /Login/Signup
     path('/signup/', views.AdminCreate, name='company-Admin-add'),
 
-    # # /Login/Verify
-    # path('/verify/', views.AdminEmailVerification, name='admin-email-verification'),
+    # /Login/Verify
+    path('/verify/', views.AdminEmailVerification, name='admin-email-verification'),
 ]

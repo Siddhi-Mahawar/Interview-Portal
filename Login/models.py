@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
 from django.urls import reverse
+from django.utils import timezone
 
 class CompanyAdmin(models.Model):
+
     name = models.CharField(max_length=250)
     email = models.EmailField(max_length=500, primary_key=True)
     phone = models.CharField(max_length=13)
@@ -17,3 +19,13 @@ class CompanyAdmin(models.Model):
     def save(self):
         self.password = make_password(self.password)
         super(CompanyAdmin,self).save()
+
+def ten_minutes_hence():
+    return timezone.now() + timezone.timedelta(minutes=10)
+
+
+class Verification(models.Model):
+
+    admin_email = models.ForeignKey(CompanyAdmin, on_delete = models.CASCADE)
+    token = models.CharField(max_length=200)
+    timestamp = models.DateTimeField(default=ten_minutes_hence)
