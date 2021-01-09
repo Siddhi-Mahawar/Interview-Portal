@@ -6,9 +6,11 @@ app_name = "Login"
 
 urlpatterns = [
     # /Login/
-    path('/', views.index, name='index'),
+    path('/', views.IndexView.as_view(), name='index'),
+    
     # /Login/person_id
-    path('/<int:pk>', views.detail, name='detail'),
+    path('/<int:pk>', views.DetailView.as_view(), name='detail'),
+    
     # /Login/Signup
-    path('/signup/', views.AdminCreate.as_view(), name='CompAdmin-add'),
+    path('/signup/', views.AdminCreate, name='company-Admin-add'),
 ]
