@@ -1,11 +1,17 @@
 {% extends 'Login/base.html' %}
-{% block title%}Dashboard{% endblock %}
-{% block body%}
+{% block title %}Add a New Admin{% endblock %}
+{% block albums_active %}active{% endblock %}
 
-    <h1>{{ companyadmin.name }}</h1>
-    <h2>{{ companyadmin.email }}</h2>
-
-        <br>
-    {% endfor %}
-
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h1>This is home page</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

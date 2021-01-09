@@ -6,11 +6,14 @@ app_name = "Login"
 
 urlpatterns = [
     # /Login/
-    path('/', views.IndexView.as_view(), name='index'),
+    path('/', views.LoginView, name='index'),
     
     # /Login/person_id
-    path('/<int:pk>', views.DetailView.as_view(), name='detail'),
+    path('/home', views.HomePage, name='home'),
     
     # /Login/Signup
     path('/signup/', views.AdminCreate, name='company-Admin-add'),
+
+    # # /Login/Verify
+    # path('/verify/', views.AdminEmailVerification, name='admin-email-verification'),
 ]
