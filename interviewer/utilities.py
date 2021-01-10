@@ -1,8 +1,6 @@
 from .models import Interviewer
 from Login.models import CompanyAdmin
-from django.contrib.auth.hashers import make_password
 from django.shortcuts import get_object_or_404
-from django.utils.crypto import get_random_string
 
 def createInterviewer(form, admin_email_id):
     

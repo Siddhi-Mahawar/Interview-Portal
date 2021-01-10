@@ -9,4 +9,7 @@ urlpatterns = [
     # /interviewer/Signup
     path('/signup/', views.InterviewerCreate, name='signup'),
 
+    path('/home', views.HomePage, name='home'),
+
+
 ]

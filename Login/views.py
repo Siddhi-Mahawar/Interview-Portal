@@ -5,8 +5,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.http import Http404
 from Login.forms import CompanyAdminForm, LoginForm, VerificationForm
-from django.contrib.auth.hashers import make_password, check_password
-from Login.utilities import send_activation_email, checkTimestamp, ten_minutes_hence
+from Login.helper import *
+from Login.utilities import admin_Login, interviewer_Login, interviewee_Login
 from django.utils.crypto import get_random_string
 
 def LoginView(request):
@@ -22,22 +22,39 @@ def LoginView(request):
     # check if form data is valid 
     if form.is_valid(): 
         
-        user_email = form.cleaned_data['email']
-        user_password = form.cleaned_data['password']
-        user = CompanyAdmin.objects.get(email = user_email)
-        
-        if check_password(user_password, user.password):
-            request.session['email'] = user.email
-            request.session['valid_admin'] = user.is_active
-            return redirect('Login:admin-email-verification')
+        if form.cleaned_data['user_type'] == "1":
+            user = admin_Login(form)
+            if user.pk:
+                request.session['email'] = user.email
+                request.session['valid'] = user.is_active
+                request.session['user_type'] = "Admin"
+                return redirect('Login:home')
 
+        elif form.cleaned_data['user_type'] == "2":
+            
+            user = interviewer_Login(form)
+            if user.pk:
+                request.session['email'] = user.email
+                request.session['user_type'] = "Interviewer"
+                return redirect('interviewer:home')
+        
+        else:
+            
+            user = interviewee_Login(form)
+            if user.pk:
+                request.session['email'] = user.email
+                request.session['interviewee_pk'] = user.pk
+                request.session['valid'] = user.is_active
+                request.session['user_type'] = "Interviewee"
+                return redirect('interviewee:home')
+        
     context['form']= form 
     return render(request, "Login/index.html", context) 
 
 def HomePage(request):
 
     if 'email' in request.session:
-        if not request.session['valid_admin']:
+        if request.session['valid'] is False:
             return redirect('Login:admin-email-verification') 
         else:
             return render(request, "Login/detail.html") 
@@ -63,8 +80,11 @@ def AdminCreate(request):
     return render(request, "Login/companyadmin_form.html", context) 
 
 def AdminEmailVerification(request):
-    
-    if request.session['valid_admin']:
+
+    if not 'email' in request.session:
+        return redirect('Login:index')
+
+    if request.session['valid']:
         return redirect('Login:home')
 
     admin_email_id = request.session['email']
@@ -84,7 +104,11 @@ def AdminEmailVerification(request):
         send_activation_email(to_email_id_list, token)
 
         admin = get_object_or_404(CompanyAdmin, pk = admin_email_id)
-        verify_row = Verification.objects.get(admin_email = admin.email)
+        try:
+            verify_row = Verification.objects.get(admin_email = admin)
+        except Verification.DoesNotExist:
+            verify_row = Verification()
+            verify_row.admin_email = admin
         verify_row.token = token
         verify_row.timestamp = ten_minutes_hence()
         verify_row.save()
@@ -102,6 +126,6 @@ def EmailVerify(request, token_value):
         admin.save()
 
         request.session['email'] = admin.email
-        request.session['valid_admin'] = admin.is_active
+        request.session['valid'] = admin.is_active
 
     return redirect('Login:index')

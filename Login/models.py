@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
 from django.urls import reverse
-from Login.utilities import ten_minutes_hence
+from Login.helper import ten_minutes_hence
 
 class CompanyAdmin(models.Model):
 

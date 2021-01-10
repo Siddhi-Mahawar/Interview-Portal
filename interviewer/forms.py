@@ -1,5 +1,5 @@
 from django import forms
-from interviewer.models import Interviewer
+from .models import Interviewer
 
 class InterviewerForm(forms.ModelForm):
     

@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from interviewer.forms import InterviewerForm
+from .forms import InterviewerForm
 from .utilities import createInterviewer
 from django.shortcuts import render, redirect
 
@@ -13,7 +13,10 @@ def InterviewerCreate(request):
     # check if form data is valid 
     if form.is_valid():
         createInterviewer(form, request.session['email'])
-        return redirect('Login:index')
+        return redirect('Login:home')
 
     context['form']= form 
     return render(request, "interviewer/index.html", context)
+
+def HomePage(request):
+    return HttpResponse("This is home page")

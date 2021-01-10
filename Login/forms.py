@@ -1,5 +1,6 @@
 from django import forms
 from Login.models import CompanyAdmin
+from .choices import TYPE_CHOICES
 
 class CompanyAdminForm(forms.ModelForm):
 
@@ -12,7 +13,8 @@ class CompanyAdminForm(forms.ModelForm):
 class LoginForm(forms.Form):
 
     email = forms.EmailField(max_length=250)
-    password = forms.CharField(max_length=16, widget=forms.PasswordInput) 
+    password = forms.CharField(max_length=32, widget=forms.PasswordInput) 
+    user_type = forms.ChoiceField(choices=TYPE_CHOICES)
 
 class VerificationForm(forms.Form):
 
