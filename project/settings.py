@@ -34,7 +34,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'Login.apps.LoginConfig',
-    'Users.apps.UsersConfig',
+    'interviewer.apps.InterviewerConfig',
+    'interviewee.apps.IntervieweeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
