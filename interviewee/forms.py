@@ -9,3 +9,9 @@ class IntervieweeForm(forms.ModelForm):
     class Meta:
         model = Interviewee
         fields = ['email', 'timestamp']
+
+class IntervieweeDetailsForm(forms.ModelForm):
+
+    class Meta:
+        model = Interviewee
+        fields = ['name', 'phone', 'resume_link']

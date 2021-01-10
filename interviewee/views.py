@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import IntervieweeForm
-from .utilities import createInterviewee
+from .forms import IntervieweeForm, IntervieweeDetailsForm
+from .utilities import createInterviewee, UpdateIntervieweeDetails
 
 # Create your views here.
 def IntervieweeCreate(request):
@@ -17,7 +17,38 @@ def IntervieweeCreate(request):
         return redirect('Login:home')
 
     context['form']= form 
-    return render(request, "interviewer/index.html", context)
+    return render(request, "interviewee/index.html", context)
 
 def HomePage(request):
-    return HttpResponse("This is home page")
+
+    if request.session['valid'] is False:
+        return redirect('interviewee:details')
+
+    print (request.session['email'])
+    return HttpResponse("This is home page of interviewee")
+
+
+# Create your views here.
+def IntervieweeDetails(request):
+    
+    if request.session['valid']:
+        return redirect('interviewee:home')
+
+    print (request.session['email'])
+    print (request.session['user_type'])    
+    print (request.session['valid'])
+
+    context = {} 
+  
+    # create object of form 
+    form = IntervieweeDetailsForm(request.POST or None, request.FILES or None) 
+      
+    # check if form data is valid 
+    if form.is_valid():
+        
+        UpdateIntervieweeDetails(form, request.session['interviewee_pk'])
+        request.session['valid'] = True
+        return redirect('interviewee:home')
+
+    context['form']= form 
+    return render(request, "interviewee/details.html", context)

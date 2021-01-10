@@ -11,4 +11,6 @@ urlpatterns = [
 
     path('/home', views.HomePage, name='home'),
 
+    path('/details', views.IntervieweeDetails, name='details'),
+
 ]

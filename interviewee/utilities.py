@@ -16,4 +16,15 @@ def createInterviewee(form, admin_email_id):
 
     interviewee.save()
 
-    print (cleaned_data)
+def UpdateIntervieweeDetails(form, interviewee_pk):
+
+    cleaned_data = form.cleaned_data
+    interviewee = get_object_or_404(Interviewee, pk = interviewee_pk)
+
+    interviewee.name = cleaned_data['name']
+    interviewee.phone = cleaned_data['phone']
+    interviewee.resume_link = cleaned_data['resume_link']
+    interviewee.is_active = True
+
+    interviewee.save()
+
