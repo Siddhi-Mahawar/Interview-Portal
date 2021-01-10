@@ -3,7 +3,6 @@ from .models import CompanyAdmin, Verification
 from django.views import generic
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.views.generic import View, CreateView
 from django.http import Http404
 from Login.forms import CompanyAdminForm, LoginForm, VerificationForm
 from django.contrib.auth.hashers import make_password, check_password

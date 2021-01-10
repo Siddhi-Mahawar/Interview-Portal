@@ -1,4 +1,4 @@
-{% extends 'Login/base.html' %}
+{% extends 'interviewer/base.html' %}
 {% block title %}Add a New Admin{% endblock %}
 {% block albums_active %}active{% endblock %}
 
@@ -8,9 +8,12 @@
         <div class="col-sm-12 col-md-7">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h1>This is home page</h1>
-                    <a href="{% url 'interviewer:signup' %}"><button>Add Interviewer</button></a>
-                    <a href="{% url 'interviewee:signup' %}"><button>Add Interviewee</button></a>
+                    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_ul }}  
+                        <button type="submit" class="save btn btn-default" href="{% url 'Login:home' %}">Submit</button>
+                    </form>
+
                 </div>
             </div>
         </div>
