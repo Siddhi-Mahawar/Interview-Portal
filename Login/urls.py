@@ -22,10 +22,9 @@ urlpatterns = [
     path('/verify/<token_value>', views.EmailVerify, name='admin-email-verify'),
 
     # /Login/passreq
-    path('/passresetreq/', views.ResetRequest, name='password-reset'),
+    path('/resetpassword/', views.ResetPasswordRequest, name='password-reset-request'),
 
-    # /Login/preset
-    path('/passreset/', views.Reset, name='password-reset-done'),
-
-
+    # /Login/passreq
+    path('/resetpassword/<token_value>', views.ResetPassword, name='password-reset'),
+    
 ]

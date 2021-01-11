@@ -22,10 +22,11 @@ def ten_minutes_hence():
     return timezone.now() + timezone.timedelta(minutes=10)
 
 
+
 def send_reset_email(to_email_id, token):
-    subject = 'Reset Password Mail'
+    subject = "Reset Password Email"
     html_message = html_message = render_to_string('Login/mail2_template.html', {'context': token})
     plain_message = strip_tags(html_message)
     from_email = settings.EMAIL_HOST_USER
     to = to_email_id
-    send_mail(subject, plain_message, from_email, [to], html_message=html_message, fail_silently=True)
+    send_mail(subject, plain_message, from_email, [to], html_message = html_message,fail_silently=True)

@@ -27,12 +27,11 @@ class VerificationForm(forms.Form):
         super(VerificationForm, self).__init__(*args, **kwargs)
         self.fields['email'] = forms.EmailField(initial=email_id)
 
+class PasswordResetRequestForm(forms.Form):
+
+    email = forms.EmailField(max_length=250)
 
 class PasswordResetForm(forms.Form):
-    password1 = forms.CharField(label='New password', widget=forms.PasswordInput, max_length=16)
-    password2 = forms.CharField(label='New password (confirm)', widget=forms.PasswordInput, max_length=16)
 
-    def __init__(self, *args, **kwargs):
-        super(PasswordResetForm, self).__init__(*args, **kwargs)
-        self.fields['password1'] = forms.PasswordInput()
-        self.fields['password2'] = forms.PasswordInput()
+    password = forms.CharField(label='New password', widget=forms.PasswordInput, max_length=16)
+    confirm_password = forms.CharField(label='Confirm password', widget=forms.PasswordInput, max_length=16)

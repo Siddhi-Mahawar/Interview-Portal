@@ -29,7 +29,7 @@ class Verification(models.Model):
     timestamp = models.DateTimeField(default=ten_minutes_hence())
 
 
-class preset_request(models.Model):
+class Passwordrequest(models.Model):
 
     admin_email = models.ForeignKey(CompanyAdmin, on_delete=models.CASCADE)
     token = models.CharField(max_length=200, default='xyz')
