@@ -4,6 +4,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils import timezone
 
+
 def send_activation_email(to_email_id, token):
     subject = "Activation mail"
     html_message = html_message = render_to_string('Login/mail_template.html', {'context': token})
@@ -12,8 +13,19 @@ def send_activation_email(to_email_id, token):
     to = to_email_id
     send_mail(subject, plain_message, from_email, [to], html_message = html_message,fail_silently=True)
 
+
 def checkTimestamp(timestamp):
     return timestamp >= timezone.now()
 
+
 def ten_minutes_hence():
     return timezone.now() + timezone.timedelta(minutes=10)
+
+
+def send_reset_email(to_email_id, token):
+    subject = 'Reset Password Mail'
+    html_message = html_message = render_to_string('Login/mail2_template.html', {'context': token})
+    plain_message = strip_tags(html_message)
+    from_email = settings.EMAIL_HOST_USER
+    to = to_email_id
+    send_mail(subject, plain_message, from_email, [to], html_message=html_message, fail_silently=True)

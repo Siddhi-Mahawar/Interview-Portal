@@ -1,13 +1,14 @@
 from django.shortcuts import render, get_object_or_404
-from .models import CompanyAdmin, Verification
+from .models import CompanyAdmin, Verification, preset_request
 from django.views import generic
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.http import Http404
-from Login.forms import CompanyAdminForm, LoginForm, VerificationForm
+from Login.forms import CompanyAdminForm, LoginForm, VerificationForm, PasswordResetForm
 from Login.helper import *
 from Login.utilities import admin_Login, interviewer_Login, interviewee_Login
 from django.utils.crypto import get_random_string
+
 
 def LoginView(request):
 
@@ -76,8 +77,9 @@ def AdminCreate(request):
         form.save() 
         return redirect('Login:index')
 
-    context['form']= form 
+    context['form'] = form
     return render(request, "Login/companyadmin_form.html", context) 
+
 
 def AdminEmailVerification(request):
 
@@ -89,12 +91,12 @@ def AdminEmailVerification(request):
 
     admin_email_id = request.session['email']
 
-    if request.method == "GET" :
+    if request.method == "GET":
 
         context = {} 
-        form = VerificationForm(email_id = admin_email_id) 
+        form = VerificationForm(email_id=admin_email_id)
 
-        context['form']= form 
+        context['form'] = form
         return render(request, "Login/verification_form.html", context) 
     
     if request.method == "POST":
@@ -129,3 +131,54 @@ def EmailVerify(request, token_value):
         request.session['valid'] = admin.is_active
 
     return redirect('Login:index')
+
+
+def Reset(request, token_value):
+    context = {}
+    form = PasswordResetForm(request.POST or None, request.FILES or None)
+
+    if form.is_valid():
+        if form.password1 == form.password2:
+            verify_object = preset_request.objects.get(token=token_value)
+
+            if checkTimestamp(verify_object.timestamp):
+                admin = verify_object.admin_email
+                admin.password = form.password1
+                admin.save()
+
+            return redirect('Login:index')
+
+    context['form'] = form
+    return render(request, "Login/preset_form.html", context)
+
+
+def ResetRequest(request):
+
+    context = {}
+
+    # create object of form
+    form = VerificationForm(request.POST or None, request.FILES or None)
+
+    # check if form data is valid
+    if form.is_valid():
+        if request.method == "POST":
+            admin_email_id = form['email'].value()
+            token1 = get_random_string(length=32)
+            to_email_id_list = admin_email_id
+            send_reset_email(to_email_id_list, token1)
+
+            admin = get_object_or_404(CompanyAdmin, pk=admin_email_id)
+            try:
+                passreq_row = preset_request.objects.get(admin_email=admin)
+            except preset_request.DoesNotExist:
+                passreq_row = preset_request()
+                passreq_row.admin_email = admin
+            passreq_row.token = token1
+            passreq_row.timestamp = ten_minutes_hence()
+            passreq_row.save()
+            return redirect('Login:password-reset-done')
+
+    context['form'] = form
+    return render(request, "Login/pemail_form.html", context)
+
+

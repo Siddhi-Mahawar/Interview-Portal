@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from .import views
 
 
@@ -19,4 +20,12 @@ urlpatterns = [
 
     # /Login/Verify/id
     path('/verify/<token_value>', views.EmailVerify, name='admin-email-verify'),
+
+    # /Login/passreq
+    path('/passresetreq/', views.ResetRequest, name='password-reset'),
+
+    # /Login/preset
+    path('/passreset/', views.Reset, name='password-reset-done'),
+
+
 ]

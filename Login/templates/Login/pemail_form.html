@@ -1,5 +1,5 @@
 {% extends 'Login/base.html' %}
-{% block title %}Add a New Admin{% endblock %}
+{% block title %}Reset Password{% endblock %}
 {% block albums_active %}active{% endblock %}
 
 {% block body %}
@@ -11,9 +11,7 @@
                     <form class="form-horizontal" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.as_ul }}  
-                        <button type="submit" class="save btn btn-default" href="{% url 'Login:home' %}">Submit</button>
-                        <br>
-                        <a href="{% url 'Login:password-reset' %}">Forgot password?</a>
+                        <button type="submit" class="save btn btn-default">Submit</button>
                     </form>
 
                 </div>
