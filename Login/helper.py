@@ -7,7 +7,7 @@ from django.utils import timezone
 
 def send_activation_email(to_email_id, token):
     subject = "Activation mail"
-    html_message = html_message = render_to_string('Login/mail_template.html', {'context': token})
+    html_message = html_message = render_to_string('Login/verify_email.html', {'context': token})
     plain_message = strip_tags(html_message)
     from_email = settings.EMAIL_HOST_USER
     to = to_email_id
@@ -25,7 +25,7 @@ def ten_minutes_hence():
 
 def send_reset_email(to_email_id, token):
     subject = "Reset Password Email"
-    html_message = html_message = render_to_string('Login/mail2_template.html', {'context': token})
+    html_message = html_message = render_to_string('Login/reset_password.html', {'context': token})
     plain_message = strip_tags(html_message)
     from_email = settings.EMAIL_HOST_USER
     to = to_email_id
