@@ -11,7 +11,7 @@ urlpatterns = [
     
     # /Login/person_id
     path('/home', views.HomePage, name='home'),
-    
+
     # /Login/Signup
     path('/signup/', views.AdminCreate, name='company-Admin-add'),
 
