@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import CompanyAdmin, Verification, Passwordrequest
+from interviewer.models import Interviewer
+from interviewee.models import Interviewee
 from django.views import generic
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
@@ -59,8 +61,10 @@ def HomePage(request):
     if 'email' in request.session:
         if request.session['valid'] is False:
             return redirect('Login:admin-email-verification') 
-        else:
-            return render(request, "Login/detail.html") 
+        else:    
+            interviewers = Interviewer.objects.all()
+            interviewees = Interviewee.objects.all()
+            return render(request, "Login/detail.html", {'interviewers' : interviewers, 'interviewees' : interviewees }) 
     else:
         return redirect('Login:index')
 

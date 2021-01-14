@@ -960,7 +960,7 @@ button {
 a:focus,
 a:hover {
   text-decoration: none;
-  color: #000; }
+  color: gray; }
 
 h1,
 h2,
@@ -1267,7 +1267,7 @@ body.open .navbar .navbar-brand.hidden {
   -webkit-transition: all 0.35s ease;
   transition: all 0.35s ease; }
   .right-panel .breadcrumbs {
-    background-color: #fff;
+    background-color: black;
     display: inline-block;
     margin-top: 0;
     padding: 0 5px;
@@ -1278,7 +1278,7 @@ body.open .navbar .navbar-brand.hidden {
     min-height: 50px;
     margin: 0;
     padding: 0 15px;
-    background: #ffffff;
+    background: black;
     border-bottom: 0; }
     .right-panel .page-header h1 {
       font-size: 18px;
