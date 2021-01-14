@@ -1,0 +1,109 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title%}Interview Portal{% endblock %}</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="{% static 'home/apple-icon.png' %}">
+    <link rel="shortcut icon" href="{% static 'home/favicon.ico' %}">
+
+    <link rel="stylesheet" href="{% static 'home/vendors/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'home/vendors/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'home/vendors/themify-icons/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'home/vendors/flag-icon-css/css/flag-icon.min.css' %}">
+    <link rel="stylesheet" href="{% static 'home/vendors/selectFX/css/cs-skin-elastic.css' %}">
+    <link rel="stylesheet" href="{% static 'home/vendors/jqvmap/dist/jqvmap.min.css' %}">
+
+
+    <link rel="stylesheet" href="{% static 'home/assets/css/style.css' %}">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+
+    <!-- Left Panel -->
+
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="./"><img src="{% static 'home/images/logo.png' %}" alt="Logo"></a>
+                <a class="navbar-brand hidden" href="./"><img src="{% static 'home/images/logo2.png' %}" alt="Logo"></a>
+            </div>
+
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+
+                    {% block nav %}
+                    {% endblock %}
+                    <!-- <li class="active">
+                        <a href="#"> <i class="menu-icon fa fa-dashboard"></i>Interviewer </a>
+                    </li>
+                    <li>
+                        <a href="#"> <i class="menu-icon fa fa-dashboard"></i>Interviewee </a>
+                    </li> -->
+                </ul>
+            </div>
+        </nav>
+    </aside>
+    <!-- /#left-panel -->
+
+    <!-- Left Panel -->
+
+    <!-- Right Panel -->
+
+    <div id="right-panel" class="right-panel">
+
+        <div class="content mt-3">
+
+            {% block body %}
+            {% endblock %}
+
+        </div> <!-- .content -->
+    </div><!-- /#right-panel -->
+
+    <!-- Right Panel -->
+
+    <script src="{% static 'home/vendors/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'home/vendors/popper.js/dist/umd/popper.min.js' %}"></script>
+    <script src="{% static 'home/vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/main.js' %}"></script>
+    <script src="{% static 'home/vendors/chart.js/dist/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/dashboard.js' %}"></script>
+    <script src="{% static 'home/assets/js/widgets.js' %}"></script>
+    <script src="{% static 'home/vendors/jqvmap/dist/jquery.vmap.min.js' %}"></script>
+    <script src="{% static 'home/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js' %}"></script>
+    <script src="{% static 'home/vendors/jqvmap/dist/maps/jquery.vmap.world.js' %}"></script>
+    <script>
+        (function($) {
+            "use strict";
+
+            jQuery('#vmap').vectorMap({
+                map: 'world_en',
+                backgroundColor: null,
+                color: '#ffffff',
+                hoverOpacity: 0.7,
+                selectedColor: '#1de9b6',
+                enableZoom: true,
+                showTooltip: true,
+                values: sample_data,
+                scaleColors: ['#1de9b6', '#03a9f5'],
+                normalizeFunction: 'polynomial'
+            });
+        })(jQuery);
+    </script>
+
+</body>
+
+</html>
