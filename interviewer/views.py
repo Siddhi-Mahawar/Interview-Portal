@@ -19,4 +19,17 @@ def InterviewerCreate(request):
     return render(request, "interviewer/index.html", context)
 
 def HomePage(request):
-    return HttpResponse("This is home page")
+    #return HttpResponse("This is home page")
+    return render(request, 'interviewer/homepage.html')
+
+
+def profile(request):
+    return render(request, 'interviewer/profile.html')
+
+
+def interviewsScheduled(request):
+    return render(request, 'interviewer/interviewsscheduled.html')
+
+
+def addinterviews(request):
+    return render(request, 'interviewer/addinterviews.html')

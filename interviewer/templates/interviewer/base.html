@@ -1,0 +1,42 @@
+{% extends 'Login/base_home.html' %}
+{% load widget_tweaks %}
+{% block title %}Interviewer Home-Page{% endblock %}
+
+
+{% block nav %}
+    <aside id="left-panel" class="left-panel">
+        <div id="main-menu" class="sidenav">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{% url 'interviewer:home' %}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{% url 'interviewer:profile' %}"> <i class="menu-icon fa fa-dashboard"></i>Profile </a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{% url 'interviewer:interviews-scheduled' %}"> <i class="menu-icon fa fa-dashboard"></i>Interviews Scheduled </a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{% url 'interviewer:add-interviews' %}"> <i class="menu-icon fa fa-dashboard"></i>Add Interviews </a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#"> <i class="menu-icon fa fa-dashboard"></i>Logout </a>
+                </li>
+            </ul>
+        </div>
+
+    </aside>
+
+{% endblock %}

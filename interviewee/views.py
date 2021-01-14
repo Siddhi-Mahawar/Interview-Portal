@@ -25,8 +25,20 @@ def HomePage(request):
         return redirect('interviewee:details')
 
     print (request.session['email'])
-    return HttpResponse("This is home page of interviewee")
+    # return HttpResponse("This is home page of interviewee")
+    return render(request, 'interviewee/homepage.html')
 
+
+def profile(request):
+    return render(request, 'interviewee/profile.html')
+
+
+def interviewsScheduled(request):
+    return render(request, 'interviewee/interviewsscheduled.html')
+
+
+def interviewRequests(request):
+    return render(request, 'interviewee/interviewrequests.html')
 
 # Create your views here.
 def IntervieweeDetails(request):

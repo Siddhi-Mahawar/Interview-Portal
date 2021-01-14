@@ -11,5 +11,10 @@ urlpatterns = [
 
     path('/home', views.HomePage, name='home'),
 
+    path('/profile', views.profile, name='profile'),
+
+    path('/interviewsScheduled', views.interviewsScheduled, name='interviews-scheduled'),
+
+    path('/addinterviews', views.addinterviews, name='add-interviews'),
 
 ]

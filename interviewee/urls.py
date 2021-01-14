@@ -13,4 +13,10 @@ urlpatterns = [
 
     path('/details', views.IntervieweeDetails, name='details'),
 
+    path('/profile', views.profile, name='profile'),
+
+    path('/interviewsScheduled', views.interviewsScheduled, name='interviews-scheduled'),
+
+    path('/interviewRequests', views.interviewRequests, name='interview-requests'),
+
 ]
