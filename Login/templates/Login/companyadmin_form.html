@@ -1,29 +1,39 @@
 {% extends 'Login/base.html' %}
+{% load widget_tweaks %}
 {% block title %}Add a New Admin{% endblock %}
 {% block albums_active %}active{% endblock %}
 
 {% block body %}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12 col-md-7">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {% if form.errors %}
-                            <p>Username already exists. Please try a new one.</p>
-                        {% endif %}
-                        {% include 'Login/form-template.html' %}
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success" href="{% url 'Login:index' %}">Submit</button>
-                            </div>
-                        </div>
-                    </form>
 
-                </div>
-            </div>
+    <span class="login100-form-title p-b-41">
+        {% block form_title %} Register Admin {% endblock %}
+    </span>
+    <form method="post" class="login100-form validate-form p-b-33 p-t-5">
+        {% csrf_token %}
+        <div class="wrap-input100 validate-input form-group">
+            {{ form.name | add_class:'input100' }}
+            <span class="focus-input100" data-placeholder="&#xe82a;"></span>
         </div>
-    </div>
-</div>
+        <div class="wrap-input100 validate-input form-group">
+            {{ form.email | add_class:'input100' }}
+            <span class="focus-input100" data-placeholder="&#xe818;"></span>
+        </div>
+        <div class="wrap-input100 validate-input form-group">
+            {{ form.phone | add_class:'input100' }}
+            <span class="focus-input100" data-placeholder="&#xe830;"></span>
+        </div>
+        <div class="wrap-input100 validate-input form-group">
+            {{ form.company_name | add_class:'input100' }}
+            <span class="focus-input100" data-placeholder="&#xe822;"></span>
+        </div>
+        <div class="wrap-input100 validate-input" data-validate="Enter password">
+            {{ form.password | add_class:'input100' }}
+            <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+        </div>
+        <div class="container-login100-form-btn m-t-32">
+            <button class="login100-form-btn">
+                Register
+            </button>
+        </div>
+    </form>
 {% endblock %}

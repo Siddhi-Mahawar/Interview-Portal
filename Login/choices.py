@@ -1,0 +1,1 @@
+TYPE_CHOICES = ((1, "Admin"), ( 2, "Interviewer"),(3, "Interviewee"))
