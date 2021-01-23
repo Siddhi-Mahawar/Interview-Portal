@@ -21,4 +21,5 @@ urlpatterns = [
     path('companyAdmin', include('Login.urls')),
     path('interviewer', include('interviewer.urls')),
     path('interviewee', include('interviewee.urls')),
+    path('editor', include('editor.urls')),
 ]
