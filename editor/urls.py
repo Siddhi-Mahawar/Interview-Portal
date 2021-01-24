@@ -5,7 +5,7 @@ app_name = "editor"
 
 urlpatterns = [
 
-    # /interviewer/Signup
+    # /editor
     path('/', views.Edit, name='editor'),
 
 ]

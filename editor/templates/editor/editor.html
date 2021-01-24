@@ -15,13 +15,16 @@
   <!-- Firepad -->
   <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css" />
   <script src="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js"></script>
-
+  <script type="text/javascript" src="{% static 'editor/editor.js'%}"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'editor/editor.css'%}">
 </head>
 
 <body onload="init()">
-  <div id="firepad-container"></div>
-
-  <script type="text/javascript" src="{% static 'editor/editor.js'%}"></script>
+  <!-- <div style="width: 50%; float:left"> -->
+    <div id="firepad-container"></div>
+  <!-- </div> -->
+  <!-- <div style="width: 50%; float:right"> -->
+    <div id="firepad-container1"></div>
+  <!-- </div> -->
 </body>
 </html>
