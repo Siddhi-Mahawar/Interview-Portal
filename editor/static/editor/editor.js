@@ -19,7 +19,8 @@ function init() {
   
   //// Create CodeMirror (with lineWrapping on).
   var codeMirror = CodeMirror(document.getElementById('firepad-container'), { lineWrapping: true });
-  var codeMirror1 = CodeMirror(document.getElementById('firepad-container1'), { lineWrapping: true });
+  var codeMirror1 = CodeMirror(document.getElementById('firepad-container1'), { lineWrapping: true, lineNumbers: true,
+    gutter: true});
   
   //// Create Firepad (with rich text toolbar and shortcuts enabled).
   var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, { richTextToolbar: true, richTextShortcuts: true });
