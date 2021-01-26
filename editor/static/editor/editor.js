@@ -1,3 +1,5 @@
+var questionPad;
+var codePad;
 
 function init() {
   
@@ -11,37 +13,34 @@ function init() {
   firebase.initializeApp(config);
   
   //// Get Firebase Database reference.
-  var firepadRef = getExampleRef();
-  var firepadRef1 = getExampleRef1();
-
-  console.log(firepadRef);
-  console.log(firepadRef1);
+  var questionfirepasRef = getQuestionRef();
+  var codefirepadRef = getCodeRef();
   
   //// Create CodeMirror (with lineWrapping on).
-  var codeMirror = CodeMirror(document.getElementById('firepad-container'), { lineWrapping: true });
-  var codeMirror1 = CodeMirror(document.getElementById('firepad-container1'), { lineWrapping: true, lineNumbers: true,
+  var questionMirror = CodeMirror(document.getElementById('firepad-container'), { lineWrapping: true });
+  var codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineWrapping: true, lineNumbers: true,
     gutter: true});
   
   //// Create Firepad (with rich text toolbar and shortcuts enabled).
-  var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, { richTextToolbar: true, richTextShortcuts: true});
-  var firepad1 = Firepad.fromCodeMirror(firepadRef1, codeMirror1, { richTextToolbar: true, richTextShortcuts: true });
+  questionPad = Firepad.fromCodeMirror(questionfirepasRef, questionMirror, { richTextToolbar: true, richTextShortcuts: true});
+  codePad = Firepad.fromCodeMirror(codefirepadRef, codeMirror, { richTextToolbar: true, richTextShortcuts: true });
 
   //// Initialize contents.
-  firepad.on('ready', function() {
-    if (firepad.isHistoryEmpty()) {
-      firepad.setHtml('<span style="font-size: 20px; font-family: sans-serif; color: #808080;">Write your article here...</span>');
+  questionPad.on('ready', function() {
+    if (questionPad.isHistoryEmpty()) {
+      questionPad.setHtml('<span style="font-size: 20px; font-family: sans-serif; color: #808080;">Write your article here...</span>');
     }
   });
-  firepad1.on('ready', function() {
-    if (firepad1.isHistoryEmpty()) {
-      firepad1.setHtml('<span style="font-size: 20px; font-family: sans-serif; color: #808080;">Write your article here...</span>');
+  codePad.on('ready', function() {
+    if (codePad.isHistoryEmpty()) {
+      codePad.setHtml('<span style="font-size: 20px; font-family: sans-serif; color: #808080;">Write your article here...</span>');
     }
   });
 
 }
 
 // Helper to get hash from end of URL or generate a random one.
-function getExampleRef() {
+function getQuestionRef() {
   var ref = firebase.database().ref();
   var hash = "question"+window.location.hash.replace(/#/g, '');
   if (hash) {
@@ -56,7 +55,7 @@ function getExampleRef() {
   return ref;
 }
 
-function getExampleRef1() {
+function getCodeRef() {
   var ref = firebase.database().ref();
   var hash = "code" + window.location.hash.replace(/#/g, '');
   if (hash) {
@@ -69,4 +68,31 @@ function getExampleRef1() {
     console.log('Firebase data: ', ref.toString());
   }
   return ref;
+}
+
+function compileandrun(){
+
+  var url = 'http://127.0.0.1:8000/editor/run';
+  var source = codePad.getText();
+  var lang = document.getElementById("language").value;
+  var input = document.getElementById("in").value;
+
+  var data = {
+    source: source,
+    lang: lang,
+    input: input
+  };
+
+  $.ajax({
+    type: "POST",
+    url: url, 
+    dataType: "json",
+    data: {csrfmiddlewaretoken: window.CSRF_TOKEN, 'params': JSON.stringify(data)},
+    success: function(result) {
+        console.log(result);
+        document.getElementById("out").value = result['output'];
+        alert("done");
+    }
+  });
+
 }

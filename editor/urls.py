@@ -8,4 +8,6 @@ urlpatterns = [
     # /editor
     path('/', views.Edit, name='editor'),
 
+    path('/run', views.Run, name = 'run'),
+
 ]

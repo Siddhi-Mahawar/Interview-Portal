@@ -148,7 +148,7 @@ def ResetPasswordRequest(request):
 
     # check if form data is valid
     if form.is_valid():
-            
+
             token = get_random_string(length=32)
             to_email_id = form.cleaned_data['email']
             send_reset_email(to_email_id, token)

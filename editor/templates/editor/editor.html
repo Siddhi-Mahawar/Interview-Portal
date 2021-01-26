@@ -15,6 +15,7 @@
   <!-- Firepad -->
   <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css" />
   <script src="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js"></script>
+  <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
   <script type="text/javascript" src="{% static 'editor/editor.js'%}"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'editor/editor.css'%}">
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -25,16 +26,10 @@
 </head>
 
 <body onload="init()">
-  <!-- <div style="width: 50%; float:left"> -->
-
-  </div>
     <div id="firepad-container"></div>
-
-  <!-- </div> -->
-  <!-- <div style="width: 50%; float:right"> -->
     <div id="firepad-container1"></div>
-  <div class="col-md-6 mb-3">
-      <select class="form-control form-control-lg" name="category" id="validationCustom03" onchange="ChangecatList()" required>
+    <div class="col-md-6 mb-3">
+      <select class="form-control form-control-lg" name="category" id="language" required>
         <option value="C">C</option>
         <option value="CPP">C++</option>
         <option value="CPP11">C++11</option>
@@ -64,13 +59,11 @@
 
   <div id="input">
     <textarea id="in">
-
     </textarea>
     <textarea id="out">
-
     </textarea>
   </div>
-  <button id="button" class="btn">Run</button>
+  <button id="run" class="btn" onclick="compileandrun()">Run</button>
   <!-- </div> -->
 </body>
 </html>
