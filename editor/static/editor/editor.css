@@ -1,9 +1,8 @@
  html { height: 100%; background-color: #454545;}
-    body { margin: 0; height: 80%; position: relative; }
+    body { margin: 0; height: 80%; position: relative; background-color: #454545;}
       /* Height / width / positioning can be customized for your use case.
          For demo purposes, we make firepad fill the entire browser. */
     #firepad-container {
-        padding-top: 30px;
       width: 40%;
       height: 100%;
       float: left;
@@ -11,17 +10,36 @@
     }
 
     #firepad-container1 {
-        padding-top: 30px;
       float: right;
       width: 60%;
       height: 100%;
+      background-color: #454545;
     }
+    #row{
+        width: 100px;
+        background-color: #454545;
+    }
+
     .CodeMirror{
         background: #2B2B2B;
         font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
         color: #A9B7C6;
         height: 100%;
         max-height: 100%;
+    }
+    #row{
+        background-color: #454545;
+    }
+    textarea {
+        resize: none;
+    }
+    textarea.in{
+        float: left;
+        background-color: #454545;
+    }
+    textarea.out{
+        float: right;
+        background-color: #454545;
     }
     .CodeMirror-cursor { border-left: 1px solid #A9B7C6; }
     .CodeMirror-gutters { background: #313335; border-right: 1px solid #313335; }

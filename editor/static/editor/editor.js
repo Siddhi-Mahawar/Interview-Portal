@@ -23,7 +23,7 @@ function init() {
     gutter: true});
   
   //// Create Firepad (with rich text toolbar and shortcuts enabled).
-  var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, { richTextToolbar: true, richTextShortcuts: true });
+  var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, { richTextToolbar: true, richTextShortcuts: true});
   var firepad1 = Firepad.fromCodeMirror(firepadRef1, codeMirror1, { richTextToolbar: true, richTextShortcuts: true });
 
   //// Initialize contents.

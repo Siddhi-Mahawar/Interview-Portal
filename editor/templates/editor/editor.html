@@ -17,6 +17,9 @@
   <script src="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js"></script>
   <script type="text/javascript" src="{% static 'editor/editor.js'%}"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'editor/editor.css'%}">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 
 </head>
@@ -24,16 +27,50 @@
 <body onload="init()">
   <!-- <div style="width: 50%; float:left"> -->
 
+  </div>
     <div id="firepad-container"></div>
 
   <!-- </div> -->
   <!-- <div style="width: 50%; float:right"> -->
-    <div id="firepad-container1">
+    <div id="firepad-container1"></div>
+  <div class="col-md-6 mb-3">
+      <select class="form-control form-control-lg" name="category" id="validationCustom03" onchange="ChangecatList()" required>
+        <option value="C">C</option>
+        <option value="CPP">C++</option>
+        <option value="CPP11">C++11</option>
+        <option value="CPP14">C++14</option>
+        <option value="CLOJURE">Clojure</option>
+        <option value="CSHARP">C#</option>
+        <option value="GO">Go</option>
+        <option value="HASKELL">Haskell</option>
+        <option value="JAVA">Java</option>
+        <option value="JAVA8">Java 8</option>
+        <option value="JAVASCRIPT">JavaScript(Rhino)</option>
+        <option value="JAVASCRIPT_NODE">JavaScript(Nodejs)</option>
+        <option value="KOTLIN">Kotlin</option>
+        <option value="OBJECTIVEC">Objective C</option>
+        <option value="PASCAL">Pascal</option>
+        <option value="PERL">Perl</option>
+        <option value="PHP">PHP</option>
+        <option value="PYTHON2">Python 2</option>
+        <option value="PYTHON3">Python 3</option>
+        <option value="R">R</option>
+        <option value="RUBY">Ruby</option>
+        <option value="SCALA">Scala</option>
+        <option value="SWIFT">Swift</option>
+        <option value="SWIFT_4_1">Swift 4.1</option>
+      </select>
+  </div>
 
-    </div>
-    <div class="select2-dropdown--below"></div>
-      <button class="btn">Submit</button>
+  <div id="input">
+    <textarea id="in">
 
+    </textarea>
+    <textarea id="out">
+
+    </textarea>
+  </div>
+  <button id="button" class="btn">Run</button>
   <!-- </div> -->
 </body>
 </html>
