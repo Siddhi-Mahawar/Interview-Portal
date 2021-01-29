@@ -6,7 +6,7 @@ app_name = "editor"
 urlpatterns = [
 
     # /editor
-    path('/', views.Edit, name='editor'),
+    path('/<roomId>', views.Edit, name='editor'),
 
     path('/run', views.Run, name = 'run'),
 
