@@ -1,6 +1,41 @@
 {% extends 'interviewer/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
 {% block body %}
-    <div class="container"><label>This is the page to add interviews</label></div>
-<!--there should be form here. The fields to be asked are position for interview,
-interviewee select dropdown, date selection, slot selection, topic of interview and submit button-->
+    <div class="limiter">
+		<div class="container-login100" style="background-image: url({% static 'images/bg-01.jpg' %});">
+			<div class="wrap-login100 p-t-30 p-b-50">
+                <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="wrap-input100 validate-input form-group">
+                        {{ form.startTime | add_class:'input100' }}
+                        <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                    </div>
+                
+                    <div class="wrap-input100 validate-input form-group">
+                        {{ form.endTime | add_class:'input100' }}
+                        <span class="focus-input100" data-placeholder="&#xe818;"></span>
+                    </div>
+                
+                    <div class="wrap-input100 validate-input form-group">
+                        {{ form.interviewee | add_class:'input100' }}
+                        <span class="focus-input100" data-placeholder="&#xe822;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input form-group">
+                        {{ form.question | add_class:'input100' }}
+                        <span class="focus-input100" data-placeholder="&#xe830;"></span>
+                    </div>
+                
+                    <div class="container-login100-form-btn m-t-32">
+                        <button class="login100-form-btn">
+                            Add Room
+                        </button>
+                    </div>
+                
+                </form>                
+			</div>
+		</div>
+	</div>
 {% endblock %}

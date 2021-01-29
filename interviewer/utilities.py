@@ -1,5 +1,6 @@
 from .models import Interviewer
 from Login.models import CompanyAdmin
+from editor.models import InterviewRoom
 from django.shortcuts import get_object_or_404
 
 def createInterviewer(form, admin_email_id):
@@ -16,3 +17,17 @@ def createInterviewer(form, admin_email_id):
     interviewer.password = get_random_string(length=32)
     interviewer.admin_email = admin
     interviewer.save()
+
+def createRoom(form, admin_email_id, token):
+    
+    cleaned_data = form.cleaned_data
+    interviewer = get_object_or_404(Interviewer, pk = admin_email_id)
+
+    room = InterviewRoom()
+    room.startTime = cleaned_data['startTime']
+    room.endTime = cleaned_data['endTime']
+    room.question = cleaned_data['question']
+    room.token = token
+    room.interviewee = cleaned_data['interviewee']
+    room.interviewer = interviewer
+    room.save()

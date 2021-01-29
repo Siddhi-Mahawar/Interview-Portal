@@ -1,9 +1,12 @@
 from django.http import HttpResponse
 from .forms import InterviewerForm
-from .utilities import createInterviewer
+from .utilities import createInterviewer, createRoom
 from django.shortcuts import render, redirect
+from editor.forms import InterviewRoomForm
+from django.utils.crypto import get_random_string
 
-# Create your views here.
+
+
 def InterviewerCreate(request):
     context = {} 
   
@@ -32,4 +35,18 @@ def interviewsScheduled(request):
 
 
 def addinterviews(request):
-    return render(request, 'interviewer/addinterviews.html')
+    
+    context = {} 
+  
+    # create object of form 
+    form = InterviewRoomForm(request.POST or None, request.FILES or None) 
+      
+    # check if form data is valid 
+    if form.is_valid(): 
+        token = get_random_string(length=32)
+        createRoom(form, request.session['email'], token)  
+        return redirect('interviewer:home')
+
+
+    context['form']= form 
+    return render(request, 'interviewer/addinterviews.html', context)
