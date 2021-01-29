@@ -1,7 +1,9 @@
 var questionPad;
 var codePad;
 
-function init() {
+function init(question) {
+
+  alert("hey");
   
   //// Initialize Firebase.
   var config = {
@@ -28,12 +30,12 @@ function init() {
   //// Initialize contents.
   questionPad.on('ready', function() {
     if (questionPad.isHistoryEmpty()) {
-      questionPad.setHtml('<span style="font-size: 20px; font-family: sans-serif; color: #808080;">Write your article here...</span>');
+      questionPad.setHtml('<span style="font-size: 20px; font-family: sans-serif; color: #808080;">'+question+'</span>');
     }
   });
   codePad.on('ready', function() {
     if (codePad.isHistoryEmpty()) {
-      codePad.setHtml('<span style="font-size: 20px; font-family: sans-serif; color: #808080;">Write your article here...</span>');
+      codePad.setHtml('<span style="font-size: 20px; font-family: sans-serif; color: #808080;">Write your Code here...</span>');
     }
   });
 
@@ -42,7 +44,7 @@ function init() {
 // Helper to get hash from end of URL or generate a random one.
 function getQuestionRef() {
   var ref = firebase.database().ref();
-  var hash = "question"+window.location.hash.replace(/#/g, '');
+  var hash = "question"+window.location.hash;
   if (hash) {
     ref = ref.child(hash);
   } else {

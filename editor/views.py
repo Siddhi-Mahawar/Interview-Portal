@@ -3,6 +3,8 @@ from django.shortcuts import render, HttpResponse
 from editor.helper import compileAndRun
 from .models import InterviewRoom
 from .utilities import RoomIdCheck, RoomTimeCheck, userCheck
+from django.shortcuts import render, redirect
+
 
 # Create your views here.
 def Edit(request, roomId):
@@ -13,14 +15,14 @@ def Edit(request, roomId):
     if room.pk:
         time_check = RoomTimeCheck(room)
         if time_check:
-            userCheck(room, request.session['email'])
-        else:
-            return redirect('Login:home')
+            if 'email' in request.session:
+                user_check = userCheck(room, request.session['email'])
+                if user_check: 
+                    print (room.question)
+                    return render(request, 'editor/editor.html', {'question': room.question})
+    
+    return redirect('Login:home')
 
-    else:
-        return redirect('Login:home')
-
-    return render(request, 'editor/editor.html', {})
 
 def Run(request):
 
