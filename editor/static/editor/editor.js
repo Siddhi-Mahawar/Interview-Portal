@@ -2,8 +2,6 @@ var questionPad;
 var codePad;
 
 function init(question) {
-
-  alert("hey");
   
   //// Initialize Firebase.
   var config = {
@@ -43,8 +41,10 @@ function init(question) {
 
 // Helper to get hash from end of URL or generate a random one.
 function getQuestionRef() {
+
   var ref = firebase.database().ref();
-  var hash = "question"+window.location.hash;
+  var hash = "question"+"-"+window.location.pathname.replace('/editor/', '');
+
   if (hash) {
     ref = ref.child(hash);
   } else {
@@ -59,7 +59,7 @@ function getQuestionRef() {
 
 function getCodeRef() {
   var ref = firebase.database().ref();
-  var hash = "code" + window.location.hash.replace(/#/g, '');
+  var hash = "code" +"-"+window.location.pathname.replace('/editor/', '');
   if (hash) {
     ref = ref.child(hash);
   } else {
