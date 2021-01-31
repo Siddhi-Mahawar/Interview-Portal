@@ -18,7 +18,7 @@ def InterviewerCreate(request):
         createInterviewer(form, request.session['email'])
         return redirect('Login:home')
 
-    context['form']= form 
+    context['form'] = form
     return render(request, "interviewer/index.html", context)
 
 def HomePage(request):

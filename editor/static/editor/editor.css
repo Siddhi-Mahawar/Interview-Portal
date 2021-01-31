@@ -1,54 +1,78 @@
  html { height: 100%; background-color: #454545;}
-    body { margin: 0; height: 80%; position: relative; background-color: #454545;}
+ body { margin: 0; height: 80%; position: relative; background-color: #454545;}
       /* Height / width / positioning can be customized for your use case.
          For demo purposes, we make firepad fill the entire browser. */
-    #firepad-container {
+ #firepad-container {
+      width: 40%;
+      height: 90%;
+      float: left;
+      background-color: #454545;
+ }
+
+ #firepad-container1 {
+      padding-top: 15px;
+      float: right;
+      width: 60%;
+      height: 80%;
+      background-color: #454545;
+
+ }
+#freeze{
+    float: left;
+}
+
+#input {
+    padding-left: 0;
       width: 40%;
       height: 100%;
       float: left;
       background-color: #454545;
-    }
-
-    #firepad-container1 {
-      float: right;
+    max-height: 35%;
+ }
+#output {
       width: 60%;
       height: 100%;
+      float: right;
       background-color: #454545;
-    }
-    #row{
-        width: 100px;
+    max-height: 34%;
+ }
+
+
+
+ #dropdown{
+        float: right;
         background-color: #454545;
-    }
+        width: 60%;
+ }
+#run{
+      float: left;
+  }
+#language{
+    float: right;
+    max-width: max-content;
+}
 
     .CodeMirror{
-        background: #2B2B2B;
+        background-color: #282a36 !important;
+  color: #f8f8f2 !important;
+  border: none;
         font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
-        color: #A9B7C6;
         height: 100%;
         max-height: 100%;
     }
-    #row{
-        background-color: #454545;
-    }
-    textarea {
-        resize: none;
-    }
-    textarea.in{
-        float: left;
-        background-color: #454545;
-    }
-    textarea.out{
-        float: right;
-        background-color: #454545;
-    }
+  #run{
+      float: left;
+  }
+
     .CodeMirror-cursor { border-left: 1px solid #A9B7C6; }
     .CodeMirror-gutters { background: #313335; border-right: 1px solid #313335; }
 
     .CodeMirror-scroll {
     height: 100%;
     max-height:94%;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
-
 
     .powered-by-firepad{
     	display:none;
