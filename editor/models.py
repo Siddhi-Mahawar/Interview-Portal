@@ -11,3 +11,4 @@ class InterviewRoom(models.Model):
     interviewer = models.ForeignKey(Interviewer, on_delete=models.CASCADE)
     interviewee = models.ForeignKey(Interviewee, on_delete=models.CASCADE)
     question = models.TextField()
+    freeze = models.BooleanField(default=False)

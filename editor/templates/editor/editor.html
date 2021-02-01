@@ -25,7 +25,7 @@
 
 </head>
 
-<body onload='init("{{question}}")'>
+<body onload='init("{{question}}", "{{ freeze }}")'>
     <div id="firepad-container"></div>
     <button id="freeze" class="btn" onclick="freezeall()">Freeze</button>
     <div id="dropdown" class="col-md-6 mb-3">
@@ -64,3 +64,9 @@
   <!-- </div> -->
 </body>
 </html>
+
+<script>
+$(document).ready(function(){
+  myVar = setInterval('checkState("{{freeze}}")', 5000);
+});
+</script>

@@ -1,7 +1,7 @@
 var questionPad;
 var codePad;
 
-function init(question) {
+function init(question, freeze) {
   
   //// Initialize Firebase.
   var config = {
@@ -17,10 +17,17 @@ function init(question) {
   var codefirepadRef = getCodeRef();
   
   //// Create CodeMirror (with lineWrapping on).
-  var questionMirror = CodeMirror(document.getElementById('firepad-container'), { lineWrapping: true });
-  var codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineWrapping: true, lineNumbers: true,
-    gutter: true});
-  
+  var questionMirror;
+  var codeMirror;
+
+  if(freeze == "True") {
+    questionMirror = CodeMirror(document.getElementById('firepad-container'), { lineWrapping: true, readOnly: true });
+    codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineWrapping: true, lineNumbers: true, gutter: true, readOnly: true});
+  } else {
+    questionMirror = CodeMirror(document.getElementById('firepad-container'), { lineWrapping: true, readOnly: true });
+    codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineWrapping: true, lineNumbers: true, gutter: true});
+  }
+
   //// Create Firepad (with rich text toolbar and shortcuts enabled).
   questionPad = Firepad.fromCodeMirror(questionfirepasRef, questionMirror, { richTextToolbar: true, richTextShortcuts: true});
   codePad = Firepad.fromCodeMirror(codefirepadRef, codeMirror, { richTextToolbar: true, richTextShortcuts: true });
@@ -96,4 +103,33 @@ function compileandrun(){
     }
   });
 
+}
+
+function freezeall(){
+
+  var path =  'http://127.0.0.1:8000'+window.location.pathname+'/freeze';
+  window.location = path;
+
+}
+
+function checkState(state){
+  
+  console.log(state);
+  var url = 'http://127.0.0.1:8000' + window.location.pathname + "/check";
+  
+  $.ajax({
+    type: "POST",
+    url: url, 
+    dataType: "json",
+    data: {csrfmiddlewaretoken: window.CSRF_TOKEN},
+    success: function(result) {
+        console.log(result);
+        if (result.state == false && state == "True")
+          window.location.reload();
+        else if (result.state == true && state == "False")
+          window.location.reload();
+        else
+          console.log("hey");
+    }
+  });
 }

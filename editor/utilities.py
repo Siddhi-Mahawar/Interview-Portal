@@ -26,3 +26,11 @@ def userCheck(room, id):
         return True
     return False
     
+def freezeRoom(roomId):
+    room = InterviewRoom.objects.get(token = roomId)
+    room.freeze = True
+    room.save()
+
+def checkRoomState(roomId):
+    room = InterviewRoom.objects.get(token = roomId)
+    return room.freeze

@@ -2,14 +2,13 @@ import json
 from django.shortcuts import render, HttpResponse
 from editor.helper import compileAndRun
 from .models import InterviewRoom
-from .utilities import RoomIdCheck, RoomTimeCheck, userCheck
+from .utilities import RoomIdCheck, RoomTimeCheck, userCheck, freezeRoom, checkRoomState
 from django.shortcuts import render, redirect
 
 
 # Create your views here.
 def Edit(request, roomId):
     
-    print (roomId)
     room = RoomIdCheck(roomId)
 
     if room.pk:
@@ -18,8 +17,8 @@ def Edit(request, roomId):
             if 'email' in request.session:
                 user_check = userCheck(room, request.session['email'])
                 if user_check: 
-                    print (room.question)
-                    return render(request, 'editor/editor.html', {'question': room.question})
+                    print (room.freeze)
+                    return render(request, 'editor/editor.html', {'question': room.question, 'freeze': room.freeze})
     
     return redirect('Login:home')
 
@@ -31,3 +30,13 @@ def Run(request):
         object_getdata = json.loads(request_getdata)
         output = compileAndRun(object_getdata["source"], object_getdata["lang"], object_getdata["input"])
         return HttpResponse(json.dumps({'output': output}), content_type="application/json")
+
+def Freeze(request, roomId):
+
+    freezeRoom(roomId)
+    return redirect('editor:editor', roomId = roomId)
+
+def Check(request, roomId):
+
+    state = checkRoomState(roomId)
+    return HttpResponse(json.dumps({'state': state}), content_type="application/json")
