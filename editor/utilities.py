@@ -37,9 +37,10 @@ def checkRoomState(roomId):
 
 def changeLang(roomId,Lang):
     room = InterviewRoom.objects.get(token=roomId)
-    room.language = Lang
+    room.lang = Lang
     room.save()
 
 def checkLang(roomId):
-    room = InterviewRoom.object.get(token = roomId)
-    return room.language
+    room = InterviewRoom.objects.get(token = roomId)
+    return room.lang
+

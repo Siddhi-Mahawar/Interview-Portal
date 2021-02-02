@@ -17,8 +17,10 @@ def Edit(request, roomId):
             if 'email' in request.session:
                 user_check = userCheck(room, request.session['email'])
                 if user_check: 
-                    print (room.freeze)
-                    return render(request, 'editor/editor.html', {'question': room.question, 'freeze': room.freeze})
+                    print(room.freeze)
+                    print(room.lang)
+                    return render(request, 'editor/editor.html',
+                                  {'question': room.question, 'freeze': room.freeze, 'lang': room.lang})
     
     return redirect('Login:home')
 
@@ -45,8 +47,8 @@ def langchange(request, roomId):
     request_getdata = request.POST.get('params', None)
     lang = json.loads(request_getdata)
     changeLang(roomId, lang)
-    return HttpResponse(json.dumps({'result': lang}), content_type='application/json')
+    return redirect('editor:editor', roomId=roomId)
 
 def langcheck(request,roomId):
-    lang = checkLang(roomId)
-    return HttpResponse(json.dumps({'lang': lang}), content_type='application/json')
+    language = checkLang(roomId)
+    return HttpResponse(json.dumps({'language': language}), content_type='application/json')

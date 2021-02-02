@@ -3,8 +3,8 @@ var codePad;
 var inPad;
 var outPad;
 
-function init(question, freeze) {
-  
+function init(question, freeze, lang) {
+
   //// Initialize Firebase.
   var config = {
     apiKey: "AIzaSyC_JdByNm-E1CAJUkePsr-YJZl7W77oL3g",
@@ -20,21 +20,58 @@ function init(question, freeze) {
   var inputref = getInputRef();
   var outputref = getOutputRef();
 
-  
+
   //// Create CodeMirror (with lineWrapping on).
   var questionMirror;
   var codeMirror;
   var inMirror = CodeMirror(document.getElementById('input'), { lineWrapping: true });
   var outMirror = CodeMirror(document.getElementById('output'), { lineWrapping: true });
-
-
-  if(freeze == "True") {
-    questionMirror = CodeMirror(document.getElementById('firepad-container'), { lineWrapping: true, readOnly: true });
-    codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, readOnly: true, mode:"javascript"});
-  } else {
-    questionMirror = CodeMirror(document.getElementById('firepad-container'), { lineWrapping: true, readOnly: true });
-    codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, mode:"javascript"});
+  questionMirror = CodeMirror(document.getElementById('firepad-container'), { lineWrapping: true, readOnly: true });
+  switch(lang){
+    case 'CPP':
+      console.log(lang);
+      console.log("refresh");
+      if(freeze == "True") {
+        codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, readOnly: true, mode: 'text/x-c++src',matchBrackets: true,});
+      }
+  else {
+        codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, mode: 'text/x-c++src',matchBrackets: true,});
+      }
+      break;
+    case 'C':
+      console.log(lang);
+      console.log("refresh");
+      if(freeze == "True") {
+        codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, readOnly: true, mode: 'text/x-csrc',matchBrackets: true,});
+      }
+  else {
+        codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, mode: 'text/x-csrc',matchBrackets: true,});
+      }
+      break;
+    case 'JAVA':
+      console.log(lang);
+      console.log("refresh");
+      if(freeze == "True") {
+        codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, readOnly: true, mode: 'text/x-java',matchBrackets: true,});
+      }
+  else {
+        codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, mode: 'text/x-java',matchBrackets: true,});
+      }
+      break;
+    case 'PYTHON2':
+      console.log(lang);
+      console.log("refresh");
+      if(freeze == "True") {
+        codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, readOnly: true, mode:{name: "python",
+               version: 2, singleLineStringErrors: false}, indentUnit: 4, matchBrackets: true});
+      }
+  else {
+        codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, mode: {name: "python",
+               version: 2, singleLineStringErrors: false}, indentUnit: 4, matchBrackets: true});
+      }
+      break;
   }
+
 
   //// Create Firepad (with rich text toolbar and shortcuts enabled).
   questionPad = Firepad.fromCodeMirror(questionfirepasRef, questionMirror, { richTextToolbar: true, richTextShortcuts: true});
@@ -186,7 +223,8 @@ function select(){
 
   var url = 'http://127.0.0.1:8000'+window.location.pathname+'/changelang';
   var lang = document.getElementById("language").value;
-  console.log(lang);
+
+  console.log(lang + " dropsense")
 
   $.ajax({
     type: "POST",
@@ -202,8 +240,7 @@ function select(){
 
 function checklanguage(lang){
 
-  console.log(lang);
-  var url = 'http://127.0.0.1:8000' + window.location.pathname + "/check";
+  var url = 'http://127.0.0.1:8000' + window.location.pathname + "/checklang";
 
   $.ajax({
     type: "POST",
@@ -212,10 +249,12 @@ function checklanguage(lang){
     data: {csrfmiddlewaretoken: window.CSRF_TOKEN},
     success: function(result) {
         console.log(result);
+        console.log("database");
         if (result.language != lang)
+          var langset = document.getElementById('language');
+          langset.value = result.language;
           window.location.reload();
-        else
-          console.log("nvm");
+
     }
   });
 }

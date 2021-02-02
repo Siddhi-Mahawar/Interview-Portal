@@ -21,11 +21,17 @@
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.2/mode/python/python.min.js" integrity="sha512-wWnd0mjQTkxcs4nTZyu9TqfeDbXghPYwndBrvzjmyAgNKX4rJ5xPirrescJZkVtrWHIb9//dMABkORz6FSJfYA==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.2/mode/clike/clike.min.js" integrity="sha512-PeD3V/6m5bFv3qyIVKgDh+huybMHjvsLWuW7ZH5WZsS+hY0pZNU24si/Yja/2D4c/ff++c6k1S240dKwhJEJzw==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.2/mode/meta.min.js" integrity="sha512-4AU15G/D6Ths4lJNV28xrLdjg8+FXTV1K6SXB9Rq6KthXET4N8grXSXLRwAx4inRs/FULSTfeQgBQmHJ1DyHmw==" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.2/theme/dracula.min.css" integrity="sha512-gFMl3u9d0xt3WR8ZeW05MWm3yZ+ZfgsBVXLSOiFz2xeVrZ8Neg0+V1kkRIo9LikyA/T9HuS91kDfc2XWse0K0A==" crossorigin="anonymous" />
+
+
 
 
 </head>
 
-<body onload='init("{{question}}", "{{ freeze }}")'>
+<body onload='init("{{question}}", "{{ freeze }}", "{{ lang }}")'>
     <div id="firepad-container"></div>
     <button id="freeze" class="btn" onclick="freezeall()">Freeze</button>
     <div id="dropdown" class="col-md-6 mb-3">
@@ -33,28 +39,8 @@
       <select class="form-control form-control-lg" name="category" id="language" required onchange="select()">
         <option value="C">C</option>
         <option value="CPP">C++</option>
-        <option value="CPP11">C++11</option>
-        <option value="CPP14">C++14</option>
-        <option value="CLOJURE">Clojure</option>
-        <option value="CSHARP">C#</option>
-        <option value="GO">Go</option>
-        <option value="HASKELL">Haskell</option>
         <option value="JAVA">Java</option>
-        <option value="JAVA8">Java 8</option>
-        <option value="JAVASCRIPT">JavaScript(Rhino)</option>
-        <option value="JAVASCRIPT_NODE">JavaScript(Nodejs)</option>
-        <option value="KOTLIN">Kotlin</option>
-        <option value="OBJECTIVEC">Objective C</option>
-        <option value="PASCAL">Pascal</option>
-        <option value="PERL">Perl</option>
-        <option value="PHP">PHP</option>
         <option value="PYTHON2">Python 2</option>
-        <option value="PYTHON3">Python 3</option>
-        <option value="R">R</option>
-        <option value="RUBY">Ruby</option>
-        <option value="SCALA">Scala</option>
-        <option value="SWIFT">Swift</option>
-        <option value="SWIFT_4_1">Swift 4.1</option>
       </select>
   </div>
   <div id="firepad-container1"></div>
@@ -68,6 +54,7 @@
 <script>
 $(document).ready(function(){
   myVar = setInterval('checkState("{{freeze}}")', 5000);
+  langchk = setInterval('checklanguage("{{language}}")',10000);
 
 });
 
