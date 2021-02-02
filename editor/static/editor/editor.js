@@ -30,15 +30,15 @@ function init(question, freeze) {
 
   if(freeze == "True") {
     questionMirror = CodeMirror(document.getElementById('firepad-container'), { lineWrapping: true, readOnly: true });
-    codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineWrapping: true, lineNumbers: true, gutter: true, readOnly: true});
+    codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, readOnly: true, mode:"javascript"});
   } else {
     questionMirror = CodeMirror(document.getElementById('firepad-container'), { lineWrapping: true, readOnly: true });
-    codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineWrapping: true, lineNumbers: true, gutter: true});
+    codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, mode:"javascript"});
   }
 
   //// Create Firepad (with rich text toolbar and shortcuts enabled).
   questionPad = Firepad.fromCodeMirror(questionfirepasRef, questionMirror, { richTextToolbar: true, richTextShortcuts: true});
-  codePad = Firepad.fromCodeMirror(codefirepadRef, codeMirror, { richTextShortcuts: true });
+  codePad = Firepad.fromCodeMirror(codefirepadRef, codeMirror);
   inPad = Firepad.fromCodeMirror(inputref, inMirror, { richTextShortcuts: true});
   outPad = Firepad.fromCodeMirror(outputref, outMirror, { richTextShortcuts: true});
   //// Initialize contents.
@@ -98,7 +98,7 @@ function getCodeRef() {
 
 function getInputRef() {
   var ref = firebase.database().ref();
-  var hash = "input"+window.location.hash.replace(/#/g, '');
+  var hash = "input"+"-"+window.location.pathname.replace('/editor/', '');
   if (hash) {
     ref = ref.child(hash);
   } else {
@@ -113,7 +113,7 @@ function getInputRef() {
 
 function getOutputRef() {
   var ref = firebase.database().ref();
-  var hash = "output"+window.location.hash.replace(/#/g, '');
+  var hash = "output"+"-" + window.location.pathname.replace('/editor/', '');
   if (hash) {
     ref = ref.child(hash);
   } else {
@@ -184,17 +184,17 @@ function checkState(state){
 
 function select(){
 
-  var url = 'http://127.0.0.1:8000'+window.location.pathname+'changelang';
-  var y = document.getElementById("language").value;
+  var url = 'http://127.0.0.1:8000'+window.location.pathname+'/changelang';
+  var lang = document.getElementById("language").value;
+  console.log(lang);
 
-  console.log(y);
   $.ajax({
     type: "POST",
     url: url,
     dataType: "json",
-    data: {csrfmiddlewaretoken: window.CSRF_TOKEN, 'params': JSON.stringify(y)},
+    data: {csrfmiddlewaretoken: window.CSRF_TOKEN, 'params': JSON.stringify(lang)},
     success: function(result) {
-        console.log(result)
+        console.log(result);
         alert("done");
     }
   });
