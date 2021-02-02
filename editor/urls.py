@@ -14,4 +14,8 @@ urlpatterns = [
 
     path('/<roomId>/check', views.Check, name='check'),
 
+    path('/<roomId>/changelang', views.langchange, name='ChangeLang'),
+
+    path('/<roomId>/checklang', views.langcheck, name='CheckLang'),
+
 ]

@@ -34,3 +34,12 @@ def freezeRoom(roomId):
 def checkRoomState(roomId):
     room = InterviewRoom.objects.get(token = roomId)
     return room.freeze
+
+def changeLang(roomId,Lang):
+    room = InterviewRoom.objects.get(token=roomId)
+    room.language = Lang
+    room.save()
+
+def checkLang(roomId):
+    room = InterviewRoom.object.get(token = roomId)
+    return room.language

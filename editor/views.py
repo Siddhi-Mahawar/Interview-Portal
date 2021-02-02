@@ -2,7 +2,7 @@ import json
 from django.shortcuts import render, HttpResponse
 from editor.helper import compileAndRun
 from .models import InterviewRoom
-from .utilities import RoomIdCheck, RoomTimeCheck, userCheck, freezeRoom, checkRoomState
+from .utilities import RoomIdCheck, RoomTimeCheck, userCheck, freezeRoom, checkRoomState, checkLang, changeLang
 from django.shortcuts import render, redirect
 
 
@@ -40,3 +40,13 @@ def Check(request, roomId):
 
     state = checkRoomState(roomId)
     return HttpResponse(json.dumps({'state': state}), content_type="application/json")
+
+def langchange(request, roomId):
+    request_getdata = request.POST.get('params', None)
+    lang = json.loads(request_getdata)
+    changeLang(roomId, lang)
+    return HttpResponse(json.dumps({'result': lang}), content_type='application/json')
+
+def langcheck(request,roomId):
+    lang = checkLang(roomId)
+    return HttpResponse(json.dumps({'lang': lang}), content_type='application/json')
