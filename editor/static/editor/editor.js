@@ -33,8 +33,7 @@ function init(question, freeze, lang) {
       console.log("refresh");
       if(freeze == "True") {
         codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, readOnly: true, mode: 'text/x-c++src',matchBrackets: true,});
-      }
-  else {
+      } else {
         codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, mode: 'text/x-c++src',matchBrackets: true,});
       }
       break;
@@ -43,8 +42,7 @@ function init(question, freeze, lang) {
       console.log("refresh");
       if(freeze == "True") {
         codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, readOnly: true, mode: 'text/x-csrc',matchBrackets: true,});
-      }
-  else {
+      } else {
         codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, mode: 'text/x-csrc',matchBrackets: true,});
       }
       break;
@@ -53,8 +51,7 @@ function init(question, freeze, lang) {
       console.log("refresh");
       if(freeze == "True") {
         codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, readOnly: true, mode: 'text/x-java',matchBrackets: true,});
-      }
-  else {
+      } else {
         codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, mode: 'text/x-java',matchBrackets: true,});
       }
       break;
@@ -64,8 +61,7 @@ function init(question, freeze, lang) {
       if(freeze == "True") {
         codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, readOnly: true, mode:{name: "python",
                version: 2, singleLineStringErrors: false}, indentUnit: 4, matchBrackets: true});
-      }
-  else {
+      } else {
         codeMirror = CodeMirror(document.getElementById('firepad-container1'), { lineNumbers: true, mode: {name: "python",
                version: 2, singleLineStringErrors: false}, indentUnit: 4, matchBrackets: true});
       }
@@ -91,14 +87,17 @@ function init(question, freeze, lang) {
   });
   inPad.on('ready', function() {
     if (inPad.isHistoryEmpty()) {
-      inPad.setHtml('<span style="font-size: 20px; font-family: sans-serif; color: #808080;">Write your article here...</span>');
+      inPad.setHtml('<span style="font-size: 20px; font-family: sans-serif; color: #808080;">Input Area</span>');
     }
   });
   outPad.on('ready', function() {
     if (outPad.isHistoryEmpty()) {
-      outPad.setHtml('<span style="font-size: 20px; font-family: sans-serif; color: #808080;">Write your article here...</span>');
+      outPad.setHtml('<span style="font-size: 20px; font-family: sans-serif; color: #808080;">Output Area</span>');
     }
   });
+
+  document.getElementById("language").value = lang;
+
 }
 
 // Helper to get hash from end of URL or generate a random one.
@@ -199,7 +198,6 @@ function freezeall(){
 
 function checkState(state){
   
-  console.log(state);
   var url = 'http://127.0.0.1:8000' + window.location.pathname + "/check";
   
   $.ajax({
@@ -224,8 +222,6 @@ function select(){
   var url = 'http://127.0.0.1:8000'+window.location.pathname+'/changelang';
   var lang = document.getElementById("language").value;
 
-  console.log(lang + " dropsense")
-
   $.ajax({
     type: "POST",
     url: url,
@@ -233,7 +229,6 @@ function select(){
     data: {csrfmiddlewaretoken: window.CSRF_TOKEN, 'params': JSON.stringify(lang)},
     success: function(result) {
         console.log(result);
-        alert("done");
     }
   });
 }
@@ -248,13 +243,11 @@ function checklanguage(lang){
     dataType: "json",
     data: {csrfmiddlewaretoken: window.CSRF_TOKEN},
     success: function(result) {
-        console.log(result);
-        console.log("database");
-        if (result.language != lang)
+        if (result.language != lang) {
           var langset = document.getElementById('language');
           langset.value = result.language;
           window.location.reload();
-
+        }
     }
   });
 }
