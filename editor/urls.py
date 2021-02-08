@@ -6,16 +6,16 @@ app_name = "editor"
 urlpatterns = [
 
     # /editor
-    path('/<roomId>', views.Edit, name='editor'),
+    path('<roomId>', views.Edit, name='editor'),
 
-    path('/run', views.Run, name = 'run'),
+    path('run', views.Run, name = 'run'),
 
-    path('/<roomId>/freeze', views.Freeze, name='freeze'),
+    path('<roomId>/freeze', views.Freeze, name='freeze'),
 
-    path('/<roomId>/check', views.Check, name='check'),
+    path('<roomId>/check', views.Check, name='check'),
 
-    path('/<roomId>/changelang', views.langchange, name='ChangeLang'),
+    path('<roomId>/changelang', views.langchange, name='ChangeLang'),
 
-    path('/<roomId>/checklang', views.langcheck, name='CheckLang'),
+    path('<roomId>/checklang', views.langcheck, name='CheckLang'),
 
 ]

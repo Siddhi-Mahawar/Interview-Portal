@@ -93,11 +93,14 @@ div {
 
 {% block nav %}
   <li class="active">
-      <a class="scroll-link" href="#" id = "interviewer"><i class="fas fa-home"></i>Interviewer</a>
+      <a class="scroll-link" href="#" id = "interviewer"><i class="fa fa-home" style="padding-right: 2px;"></i>Interviewer</a>
   </li>
   <li>
-      <a class="scroll-link" href="#" id = "interviewee"><i class="fas fa-home"></i>Interviewee</a>
+      <a class="scroll-link" href="#" id = "interviewee"><i class="fa fa-home" style="padding-right: 2px;"></i>Interviewee</a>
   </li>
+  <li>
+    <a class="scroll-link" href="{% url 'Login:logout' %}" id = "logout"><i class="fa fa-home" style="padding-right: 2px;"></i>Logout</a>
+</li>
 {% endblock %}
 
 {% block body %}

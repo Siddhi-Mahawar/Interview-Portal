@@ -191,3 +191,16 @@ def ResetPassword(request, token_value):
             
     context['form'] = form
     return render(request, "Login/passwordreset.html", context) 
+
+
+def Logout(request):
+    
+    try:
+        del request.session['email']
+        del request.session['user_type']
+        del request.session['valid']
+        del request.session['interviewee_pk']
+    except KeyError:
+        pass
+
+    return redirect('Login:index')
