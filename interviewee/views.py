@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import IntervieweeForm, IntervieweeDetailsForm
 from .utilities import createInterviewee, UpdateIntervieweeDetails
+from interviewer.models import Interviewer
+from interviewee.models import Interviewee
+from editor.models import InterviewRoom
 
 # Create your views here.
 def IntervieweeCreate(request):
@@ -23,8 +26,16 @@ def HomePage(request):
 
     if request.session['valid'] is False:
         return redirect('interviewee:details')
+    else:
+        print (request.session['email'])
 
-    print (request.session['email'])
+        interviewer = Interviewer.objects.all()
+        interviewee = Interviewee.objects.filter(email=request.session['email'])
+        interview = InterviewRoom.objects.filter(interviewee=interviewee[0])
+        print(interviewee[0].email)
+
+        return render(request, 'interviewee/homepage.html', {'interviewers': interviewer, 'interview': interview, 'interviewee':interviewee[0] })
+
     # return HttpResponse("This is home page of interviewee")
     return render(request, 'interviewee/homepage.html')
 

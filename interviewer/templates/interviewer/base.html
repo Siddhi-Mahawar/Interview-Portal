@@ -4,39 +4,16 @@
 
 
 {% block nav %}
-    <aside id="left-panel" class="left-panel">
-        <div id="main-menu" class="sidenav">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="{% url 'interviewer:home' %}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="{% url 'interviewer:profile' %}"> <i class="menu-icon fa fa-dashboard"></i>Profile </a>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="{% url 'interviewer:interviews-scheduled' %}"> <i class="menu-icon fa fa-dashboard"></i>Interviews Scheduled </a>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="{% url 'interviewer:add-interviews' %}"> <i class="menu-icon fa fa-dashboard"></i>Add Interviews </a>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="#"> <i class="menu-icon fa fa-dashboard"></i>Logout </a>
-                </li>
-            </ul>
-        </div>
-
-    </aside>
-
+  <li class="active">
+      <a class="scroll-link" href="#" id = "Profile"><i class="fa fa-home" style="padding-right: 2px;"></i>Profile</a>
+  </li>
+  <li>
+      <a class="scroll-link" href="#" id = "InterviewsScheduled"><i class="fa fa-home" style="padding-right: 2px;"></i>Interviews Scheduled</a>
+  </li>
+  <li>
+     <a href="{% url 'interviewer:add-interviews' %}"> <i class="menu-icon fa fa-home"></i>Add Interviews </a>
+  </li>
+  <li>
+    <a class="scroll-link" href="{% url 'Login:logout' %}" id = "logout"><i class="fa fa-home" style="padding-right: 2px;"></i>Logout</a>
+</li>
 {% endblock %}

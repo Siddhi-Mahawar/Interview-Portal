@@ -3,6 +3,9 @@ from .forms import InterviewerForm
 from .utilities import createInterviewer, createRoom
 from django.shortcuts import render, redirect
 from editor.forms import InterviewRoomForm
+from interviewer.models import Interviewer
+from interviewee.models import Interviewee
+from editor.models import InterviewRoom
 from django.utils.crypto import get_random_string
 
 
@@ -23,7 +26,16 @@ def InterviewerCreate(request):
 
 def HomePage(request):
     #return HttpResponse("This is home page")
-    return render(request, 'interviewer/homepage.html')
+    if request.session['valid'] is False:
+        return redirect('interviewer:details')
+    else:
+        print (request.session['email'])
+        interviewee = Interviewee.objects.all()
+        interviewer = Interviewer.objects.filter(email=request.session['email'])
+        interview = InterviewRoom.objects.filter(interviewer=interviewer[0])
+        print(interviewee)
+        return render(request, 'interviewer/homepage.html', {'interviewees': interviewee, 'interview': interview, 'interviewer': interviewer[0]})
+
 
 
 def profile(request):
