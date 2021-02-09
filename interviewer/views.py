@@ -26,15 +26,15 @@ def InterviewerCreate(request):
 
 def HomePage(request):
     #return HttpResponse("This is home page")
-    if request.session['valid'] is False:
-        return redirect('interviewer:details')
-    else:
-        print (request.session['email'])
-        interviewee = Interviewee.objects.all()
-        interviewer = Interviewer.objects.filter(email=request.session['email'])
-        interview = InterviewRoom.objects.filter(interviewer=interviewer[0])
-        print(interviewee)
-        return render(request, 'interviewer/homepage.html', {'interviewees': interviewee, 'interview': interview, 'interviewer': interviewer[0]})
+    # if request.session['valid'] is False:
+    #     return redirect('interviewer:details')
+    # else:
+    print (request.session['email'])
+    interviewee = Interviewee.objects.all()
+    interviewer = Interviewer.objects.filter(email=request.session['email'])
+    interview = InterviewRoom.objects.filter(interviewer=interviewer[0])
+    print(interviewee)
+    return render(request, 'interviewer/homepage.html', {'interviewees': interviewee, 'interview': interview, 'interviewer': interviewer[0]})
 
 
 

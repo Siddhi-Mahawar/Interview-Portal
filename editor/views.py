@@ -15,12 +15,13 @@ def Edit(request, roomId):
         time_check = RoomTimeCheck(room)
         if time_check:
             if 'email' in request.session:
+                freeze_valid = False
                 user_check = userCheck(room, request.session['email'])
+                if request.session['user_type'] == "Interviewer":
+                    freeze_valid = True
                 if user_check: 
-                    print(room.freeze)
-                    print(room.lang)
                     return render(request, 'editor/editor.html',
-                                  {'question': room.question, 'freeze': room.freeze, 'lang': room.lang})
+                                  {'question': room.question, 'freeze': room.freeze, 'lang': room.lang, 'freeze_valid': freeze_valid})
     
     return redirect('Login:home')
 

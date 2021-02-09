@@ -1,20 +1,21 @@
- html { height: 100%; background-color: #454545;}
- body { margin: 0; height: 80%; position: relative; background-color: #454545;}
+ html { height: 100%; background-color: black !important;}
+ body { margin: 0; height: 100%; position: relative; background-color: black !important;}
       /* Height / width / positioning can be customized for your use case.
          For demo purposes, we make firepad fill the entire browser. */
  #firepad-container {
-      width: 40%;
-      height: 90%;
+     padding: 1%;
+      width: 50%;
+      height: 70%;
       float: left;
-      background-color: #454545;
+      /* background-color: #454545; */
  }
 
  #firepad-container1 {
-      padding-top: 15px;
+      /* padding: 1%; */
       float: right;
-      width: 60%;
-      height: 80%;
-      background-color: #454545;
+      width: 50%;
+      height: 100%;
+      /* background-color: #454545; */
 
  }
 #freeze{
@@ -22,58 +23,52 @@
 }
 
 #input {
-    padding-left: 0;
-      width: 40%;
-      height: 100%;
-      float: left;
-      background-color: #454545;
+    padding: 1% 0;
+    width: 50%;
+    height: 12.5%;
+    float: left;
+    /* background-color: #454545; */
     max-height: 35%;
  }
 #output {
-      width: 60%;
-      height: 100%;
-      float: right;
-      background-color: #454545;
+    padding: 1% 0;
+    width: 50%;
+    height: 12.5%;
+    float: right;
+    /* background-color: #454545; */
     max-height: 34%;
  }
 
 
 
  #dropdown{
-        float: right;
-        background-color: #454545;
-        width: 60%;
+    float: left;
+    /* background-color: #454545; */
+    width: 50%;
  }
-#run{
-      float: left;
-  }
-#language{
+#run {
     float: right;
+    margin: 0 10px;
+}
+#freeze {
+    float: right;
+    margin: 0 10px;
+}
+#language{
+    float: left;
     max-width: max-content;
 }
 
-    .CodeMirror{
-        background-color: #282a36 !important;
-  color: #f8f8f2 !important;
-  border: none;
-        font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
-        height: 100%;
-        max-height: 100%;
-    }
-  #run{
-      float: left;
-  }
-
-    .CodeMirror-cursor { border-left: 1px solid #A9B7C6; }
-    .CodeMirror-gutters { background: #313335; border-right: 1px solid #313335; }
-
-    .CodeMirror-scroll {
+.CodeMirror{
+    background-color: #394049 !important;
+    color: whitesmoke !important;
+    border: none;
+    font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
     height: 100%;
-    max-height:94%;
-    overflow-x: hidden;
-    overflow-y: auto;
+    max-height: 100%;
 }
-
-    .powered-by-firepad{
-    	display:none;
-    }
+.CodeMirror-cursor { border-left: 1px solid #c1c1c1; }
+.CodeMirror-gutters { background: #c1c1c1; padding: 1px solid #c1c1c1; }
+.powered-by-firepad{
+    display:none;
+}

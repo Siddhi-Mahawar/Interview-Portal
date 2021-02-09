@@ -68,6 +68,8 @@ function init(question, freeze, lang) {
       break;
   }
 
+  // questionMirror.setSize("50%", "100%");
+  // questionMirror.setSize("50%", "100%");
 
   //// Create Firepad (with rich text toolbar and shortcuts enabled).
   questionPad = Firepad.fromCodeMirror(questionfirepasRef, questionMirror, { richTextToolbar: true, richTextShortcuts: true});
