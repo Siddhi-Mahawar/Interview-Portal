@@ -5,6 +5,7 @@ from .utilities import createInterviewee, UpdateIntervieweeDetails
 from interviewer.models import Interviewer
 from interviewee.models import Interviewee
 from editor.models import InterviewRoom
+import json
 
 # Create your views here.
 def IntervieweeCreate(request):
@@ -75,3 +76,7 @@ def IntervieweeDetails(request):
 
     context['form']= form 
     return render(request, "interviewee/details.html", context)
+
+
+def gotoeditor(request, roomId):
+    return redirect('editor:editor', roomId=roomId)

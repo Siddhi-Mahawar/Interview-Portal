@@ -19,4 +19,6 @@ urlpatterns = [
 
     path('interviewRequests', views.interviewRequests, name='interview-requests'),
 
+    path('<roomId>', views.gotoeditor, name='gotoeditor'),
+
 ]

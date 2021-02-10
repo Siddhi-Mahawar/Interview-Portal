@@ -169,21 +169,21 @@ div {
         {% for interview in interview %}
           {{ for.count }}
           <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="{{ interviewee.pk }}">
+            <div class="panel-heading" role="tab" id="{{ interview.pk }}">
               <h4 class="panel-title">
-              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ interviewee.pk }}" aria-expanded="true" aria-controls="collapse{{ interviewee.pk }}">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ interview.pk }}" aria-expanded="true" aria-controls="collapse{{ interviewee.pk }}">
                 {{interview.interviewer.name}}
               </a>
             </h4>
             </div>
-            <div id="collapse{{ interviewee.pk }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{ interviewee.pk }}">
+            <div id="collapse{{ interview.pk }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{ interviewee.pk }}">
               <div class="panel-body">
                 <div class="col email-entry">
                   <div class="col-sm-6">
-                      Token
+                      Interview Link
                   </div>
                   <div class="col-sm-6">
-                    {{ interview.token }}
+                    <a href='#' class="link" id="{{ interview.token }}">Join Now</a>
                   </div>
                 </div>
                 <div class="col email-entry">
@@ -233,6 +233,15 @@ document.getElementById("section-profile").style.display = 'none';
 document.getElementById("section-Schedule").style.display = 'block';
 
 });
+$('.link').click(function (){
+    var token = $(this).attr('id');
+    console.log(token);
+    var url = '127.0.0.1/interviewee/' + token;
+    console.log(url);
+    window.location.assign(token);
+    console.log('clicked');
+});
+
 
 </script>
 {% endblock %}

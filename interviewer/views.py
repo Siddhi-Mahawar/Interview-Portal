@@ -7,6 +7,8 @@ from interviewer.models import Interviewer
 from interviewee.models import Interviewee
 from editor.models import InterviewRoom
 from django.utils.crypto import get_random_string
+from datetime import datetime
+from django.utils import timezone
 
 
 
@@ -30,12 +32,16 @@ def HomePage(request):
     #     return redirect('interviewer:details')
     # else:
     print (request.session['email'])
+    today = timezone.now()
+    tomorrow = timezone.now()+timezone.timedelta(days=1)
+    print(tomorrow)
     interviewee = Interviewee.objects.all()
     interviewer = Interviewer.objects.filter(email=request.session['email'])
-    interview = InterviewRoom.objects.filter(interviewer=interviewer[0])
-    print(interviewee)
-    return render(request, 'interviewer/homepage.html', {'interviewees': interviewee, 'interview': interview, 'interviewer': interviewer[0]})
-
+    interview = InterviewRoom.objects.filter(interviewer=interviewer[0]).order_by('startTime')
+    print(interviewee[0])
+    print(interview)
+    print(datetime.now().date())
+    return render(request, 'interviewer/homepage.html', {'interviewees': interviewee, 'interview': interview, 'interviewer': interviewer[0],'today':today, 'tomorrow':tomorrow})
 
 
 def profile(request):
@@ -62,3 +68,8 @@ def addinterviews(request):
 
     context['form']= form 
     return render(request, 'interviewer/addinterviews.html', context)
+
+
+def gotoeditor(request, roomId):
+    return redirect('editor:editor', roomId=roomId)
+
