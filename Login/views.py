@@ -203,4 +203,4 @@ def Logout(request):
     except KeyError:
         pass
 
-    return redirect('Login:index')
+    return redirect('Login:login')
