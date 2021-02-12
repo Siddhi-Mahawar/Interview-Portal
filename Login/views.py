@@ -103,7 +103,7 @@ def AdminEmailVerification(request):
         form = VerificationForm(email_id=admin_email_id)
 
         context['form'] = form
-        return render(request, "Login/verification_form.html", context) 
+        return render(request, "Login/verify_email.html", context) 
     
     if request.method == "POST":
 
