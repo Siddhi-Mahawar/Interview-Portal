@@ -1,0 +1,55 @@
+{% extends 'interviewer/base.html' %}
+{% load static %}
+{% block body %}
+    <div class="breadcrumbs" style="padding-top: 2%;">
+          <div class="page-header">
+              <div class="page-title">
+                <center>
+                  <p style="font-size: 36px;">Profile</p>
+                </center>
+              </div>
+          </div>
+    </div>
+    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mx-auto d-block">
+                                    <img class="rounded-circle mx-auto d-block" src="{% static 'home/images/admin.jpg'%}" alt="Card image cap">
+                                    <h5 class="text-sm-center mt-2 mb-1">{{ interviewer.name }}</h5>
+                                    <div class="location text-sm-center">{{ interviewer.position }}</div>
+                                </div>
+                                <hr>
+                                <div class="card-text">
+
+
+                                        <div class="col email-entry">
+                                          <div class="col-sm-6">
+                                            Email
+                                          </div>
+                                          <div class="col-sm-6">
+                                            {{ interviewer.email }}
+                                          </div>
+                                        </div>
+                                        <div class="col email-entry">
+                                          <div class="col-sm-6">
+                                            Phone
+                                          </div>
+                                          <div class="col-sm-6">
+                                            {{ interviewer.phone }}
+                                          </div>
+                                        </div>
+                                        <div class="col email-entry">
+                                          <div class="col-sm-6">
+                                            Company Name
+                                          </div>
+                                          <div class="col-sm-6">
+                                            {{ interviewer.company_name }}
+                                          </div>
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+{% endblock %}

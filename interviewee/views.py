@@ -25,9 +25,9 @@ def IntervieweeCreate(request):
 
 def HomePage(request):
 
-    if request.session['valid'] is False:
-        return redirect('interviewee:details')
-    else:
+    #if request.session['valid'] is False:
+    #    return redirect('interviewee:details')
+    #else:
         print (request.session['email'])
 
         interviewer = Interviewer.objects.all()
@@ -38,15 +38,20 @@ def HomePage(request):
         return render(request, 'interviewee/homepage.html', {'interviewers': interviewer, 'interview': interview, 'interviewee':interviewee[0] })
 
     # return HttpResponse("This is home page of interviewee")
-    return render(request, 'interviewee/homepage.html')
+
 
 
 def profile(request):
-    return render(request, 'interviewee/profile.html')
+    interviewee = Interviewee.objects.filter(email=request.session['email'])
+    return render(request, 'interviewee/profile.html',{ 'interviewee':interviewee[0] })
 
 
 def interviewsScheduled(request):
-    return render(request, 'interviewee/interviewsscheduled.html')
+    interviewer = Interviewer.objects.all()
+    interviewee = Interviewee.objects.filter(email=request.session['email'])
+    interview = InterviewRoom.objects.filter(interviewee=interviewee[0])
+    print(interviewee[0].email)
+    return render(request, 'interviewee/interviewsScheduled.html',{'interviewers': interviewer, 'interview': interview, 'interviewee':interviewee[0] })
 
 
 def interviewRequests(request):

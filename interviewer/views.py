@@ -27,13 +27,24 @@ def InterviewerCreate(request):
     return render(request, "interviewer/index.html", context)
 
 def HomePage(request):
-    #return HttpResponse("This is home page")
-    # if request.session['valid'] is False:
-    #     return redirect('interviewer:details')
-    # else:
-    print (request.session['email'])
     today = timezone.now()
     tomorrow = timezone.now()+timezone.timedelta(days=1)
+    interviewee = Interviewee.objects.all()
+    interviewer = Interviewer.objects.filter(email=request.session['email'])
+    interview = InterviewRoom.objects.filter(interviewer=interviewer[0]).order_by('startTime')
+    return render(request, 'interviewer/homepage.html', {'interviewees': interviewee, 'interview': interview, 'interviewer': interviewer[0],'today':today, 'tomorrow':tomorrow})
+
+
+def profile(request):
+    print(request.session['email'])
+    interviewer = Interviewer.objects.filter(email=request.session['email'])
+    return render(request, 'interviewer/profile.html', {'interviewer': interviewer[0]})
+
+
+def interviewsScheduled(request):
+    print(request.session['email'])
+    today = timezone.now()
+    tomorrow = timezone.now() + timezone.timedelta(days=1)
     print(tomorrow)
     interviewee = Interviewee.objects.all()
     interviewer = Interviewer.objects.filter(email=request.session['email'])
@@ -41,15 +52,9 @@ def HomePage(request):
     print(interviewee[0])
     print(interview)
     print(datetime.now().date())
-    return render(request, 'interviewer/homepage.html', {'interviewees': interviewee, 'interview': interview, 'interviewer': interviewer[0],'today':today, 'tomorrow':tomorrow})
-
-
-def profile(request):
-    return render(request, 'interviewer/profile.html')
-
-
-def interviewsScheduled(request):
-    return render(request, 'interviewer/interviewsscheduled.html')
+    return render(request, 'interviewer/interviewscheduled.html',
+                  {'interviewees': interviewee, 'interview': interview, 'interviewer': interviewer[0], 'today': today,
+                   'tomorrow': tomorrow})
 
 
 def addinterviews(request):
