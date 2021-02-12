@@ -54,7 +54,7 @@ def LoginView(request):
                 return redirect('interviewee:home')
         
     context['form']= form 
-    return render(request, "Login/index.html", context) 
+    return render(request, "Login/login.html", context) 
 
 def HomePage(request):
 
@@ -84,7 +84,7 @@ def AdminCreate(request):
         return redirect('Login:index')
 
     context['form'] = form
-    return render(request, "Login/companyadmin_form.html", context) 
+    return render(request, "Login/signup.html", context) 
 
 
 def AdminEmailVerification(request):

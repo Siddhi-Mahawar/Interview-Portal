@@ -8,7 +8,7 @@ app_name = "Login"
 urlpatterns = [
 
     # /
-    path('', views.LoginView, name='index'),
+    path('', views.LoginView, name='login'),
     
     # /home
     path('home', views.HomePage, name='home'),

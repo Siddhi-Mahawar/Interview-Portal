@@ -18,7 +18,7 @@ class CompanyAdminForm(forms.ModelForm):
 
 class LoginForm(forms.Form):
 
-    email = forms.EmailField(max_length = 250, widget=forms.EmailInput(attrs={'placeholder': 'Username'}))
+    email = forms.EmailField(max_length = 250, widget=forms.EmailInput(attrs={'placeholder': 'Email Address'}))
     password = forms.CharField(max_length=32, widget=forms.PasswordInput(attrs={'placeholder': 'Password'})) 
     user_type = forms.ChoiceField(choices=TYPE_CHOICES)
 
