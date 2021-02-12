@@ -64,9 +64,9 @@ def HomePage(request):
         else:    
             interviewers = Interviewer.objects.all()
             interviewees = Interviewee.objects.all()
-            return render(request, "Login/detail.html", {'interviewers' : interviewers, 'interviewees' : interviewees }) 
+            return render(request, "Login/home.html", {'interviewers' : interviewers, 'interviewees' : interviewees }) 
     else:
-        return redirect('Login:index')
+        return redirect('Login:login')
 
 def AdminCreate(request):
 
@@ -81,7 +81,7 @@ def AdminCreate(request):
     # check if form data is valid 
     if form.is_valid(): 
         form.save() 
-        return redirect('Login:index')
+        return redirect('Login:login')
 
     context['form'] = form
     return render(request, "Login/signup.html", context) 
@@ -90,7 +90,7 @@ def AdminCreate(request):
 def AdminEmailVerification(request):
 
     if not 'email' in request.session:
-        return redirect('Login:index')
+        return redirect('Login:login')
 
     if request.session['valid']:
         return redirect('Login:home')
@@ -137,7 +137,7 @@ def EmailVerify(request, token_value):
         request.session['email'] = admin.email
         request.session['valid'] = admin.is_active
 
-    return redirect('Login:index')
+    return redirect('Login:login')
 
 def ResetPasswordRequest(request):
 
