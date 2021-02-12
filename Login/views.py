@@ -164,10 +164,10 @@ def ResetPasswordRequest(request):
             passwordresetrow.token = token
             passwordresetrow.timestamp = ten_minutes_hence()
             passwordresetrow.save()
-            return redirect('Login:password-reset-request')
+            return redirect('Login:login')
 
     context['form'] = form
-    return render(request, "Login/passwordresetrequest.html", context)
+    return render(request, "Login/forgot_password.html", context)
 
 def ResetPassword(request, token_value):
 
@@ -181,16 +181,18 @@ def ResetPassword(request, token_value):
         
         print (form.cleaned_data)
         if form.cleaned_data['password'] == form.cleaned_data['confirm_password']:
-            reset_password_object = Passwordrequest.objects.get(token= token_value)
-            
-            if checkTimestamp(reset_password_object.timestamp):
-                admin = reset_password_object.admin_email
-                admin.password = form.cleaned_data['password']
-                admin.save()
-                return redirect('Login:index')
-            
+            try:
+                reset_password_object = Passwordrequest.objects.get(token= token_value)
+                if checkTimestamp(reset_password_object.timestamp):
+                    admin = reset_password_object.admin_email
+                    admin.password = form.cleaned_data['password']
+                    admin.save()
+                    return redirect('Login:login')
+            except Passwordrequest.DoesNotExist:
+                return redirect('Login:login')
+
     context['form'] = form
-    return render(request, "Login/passwordreset.html", context) 
+    return render(request, "Login/update_password.html", context) 
 
 
 def Logout(request):
