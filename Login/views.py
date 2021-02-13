@@ -58,15 +58,23 @@ def LoginView(request):
 
 def HomePage(request):
 
-    if 'email' in request.session:
-        if request.session['valid'] is False:
-            return redirect('Login:admin-email-verification') 
+    print (request.session['user_type'])
+    if 'user_type' in request.session:
+        if request.session['user_type'] == "Interviewer":
+            return redirect('interviewer:home')
+        elif request.session['user_type'] == "Interviewee":
+            return redirect('interviewee:home')
         else:
-            admin = CompanyAdmin.objects.get(email=request.session['email'])
-            print(admin)
-            return render(request, "Login/profile.html", {'admin' : admin }) 
+            if request.session['valid'] is False:
+                return redirect('Login:admin-email-verification') 
+            else:
+                admin = CompanyAdmin.objects.get(email=request.session['email'])
+                print(admin)
+                return render(request, "Login/profile.html", {'admin' : admin }) 
     else:
         return redirect('Login:login')
+
+
 
 def AdminCreate(request):
 

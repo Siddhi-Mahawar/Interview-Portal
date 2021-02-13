@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import IntervieweeForm, IntervieweeDetailsForm
-from .utilities import createInterviewee, UpdateIntervieweeDetails
+from .utilities import createInterviewee, UpdateIntervieweeDetails, getInterviews
 from interviewer.models import Interviewer
 from interviewee.models import Interviewee
 from editor.models import InterviewRoom
 import json
 
-# Create your views here.
 def IntervieweeCreate(request):
     context = {} 
   
@@ -23,49 +22,25 @@ def IntervieweeCreate(request):
     context['form']= form 
     return render(request, "Login/add_interviewee.html", context)
 
-def HomePage(request):
+def Profile(request):
 
-    #if request.session['valid'] is False:
-    #    return redirect('interviewee:details')
-    #else:
-        print (request.session['email'])
-
-        interviewer = Interviewer.objects.all()
-        interviewee = Interviewee.objects.filter(email=request.session['email'])
-        interview = InterviewRoom.objects.filter(interviewee=interviewee[0])
-        print(interviewee[0].email)
-
-        return render(request, 'interviewee/homepage.html', {'interviewers': interviewer, 'interview': interview, 'interviewee':interviewee[0] })
-
-    # return HttpResponse("This is home page of interviewee")
-
-
-
-def profile(request):
-    interviewee = Interviewee.objects.filter(email=request.session['email'])
-    return render(request, 'interviewee/profile.html',{ 'interviewee':interviewee[0] })
-
+    if 'email' in request.session:
+        if request.session['valid'] is False:
+            return redirect('interviewee:details') 
+        else:
+            interviewee = Interviewee.objects.get(pk = request.session['interviewee_pk'])
+            return render(request, 'interviewee/profile.html', {'interviewee': interviewee })
+    return redirect('Login:login')
 
 def interviewsScheduled(request):
-    interviewer = Interviewer.objects.all()
-    interviewee = Interviewee.objects.filter(email=request.session['email'])
-    interview = InterviewRoom.objects.filter(interviewee=interviewee[0])
-    print(interviewee[0].email)
-    return render(request, 'interviewee/interviewsScheduled.html',{'interviewers': interviewer, 'interview': interview, 'interviewee':interviewee[0] })
+    interviews = getInterviews(request.session['interviewee_pk'])['today']
+    print (interviews)
+    return render(request, 'interviewee/interviewsScheduled.html',{'interviews': interviews})
 
-
-def interviewRequests(request):
-    return render(request, 'interviewee/interviewrequests.html')
-
-# Create your views here.
 def IntervieweeDetails(request):
     
     if request.session['valid']:
         return redirect('interviewee:home')
-
-    print (request.session['email'])
-    print (request.session['user_type'])    
-    print (request.session['valid'])
 
     context = {} 
   
@@ -81,7 +56,3 @@ def IntervieweeDetails(request):
 
     context['form']= form 
     return render(request, "interviewee/details.html", context)
-
-
-def gotoeditor(request, roomId):
-    return redirect('editor:editor', roomId=roomId)

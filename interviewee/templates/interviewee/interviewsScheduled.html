@@ -16,7 +16,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                    {% for interview in interview %}
+                                    {% for interview in interviews %}
                                       {{ for.count }}
                                       <div class="panel panel-default">
                                         <div class="panel-heading" role="tab" id="{{ interview.pk }}">
@@ -33,7 +33,7 @@
                                                   Interview Link
                                               </div>
                                               <div class="col-sm-6">
-                                                <a href='#' class="link" id="{{ interview.token }}">Join Now</a>
+                                                <a href="{% url 'editor:editor' interview.token %}" class="link" id="{{ interview.token }}">Join Now</a>
                                               </div>
                                             </div>
                                             <div class="col email-entry">
@@ -61,17 +61,4 @@
                         </div>
     </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-
-$('.link').click(function (){
-    var token = $(this).attr('id');
-    console.log(token);
-    var url = '127.0.0.1/interviewee/interviewsScheduled/' + token;
-    console.log(url);
-    window.location.assign(token);
-    console.log('clicked');
-});
-
-
-</script>
 {% endblock %}
