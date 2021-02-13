@@ -26,97 +26,98 @@
                                         </div>
                                     </nav>
                                     <div class="tab-content pl-3 pt-2" id="nav-tabContent">
-                                        {% for interview in interview %}
-                                        {{ for.count }}
                                         <div class="tab-pane fade show active" id="custom-nav-home" role="tabpanel" aria-labelledby="custom-nav-home-tab">
+                                          {% for interview in today_interview %}
+                                          {{ for.count }}
                                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                                  {% if interview.startTime >= today and interview.startTime < tomorrow %}
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading" role="tab" id="{{ interview.pk }}">
-                                                          <h4 class="panel-title">
-                                                          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ interview.pk }}" aria-expanded="true" aria-controls="collapse{{ interviewee.pk }}">
-                                                            {{interview.interviewee.name}}
-                                                          </a>
-                                                        </h4>
+                                              <div class="panel panel-default">
+                                                  <div class="panel-heading" role="tab" id="{{ interview.pk }}">
+                                                    <h4 class="panel-title">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ interview.pk }}" aria-expanded="true" aria-controls="collapse{{ interviewee.pk }}">
+                                                      {{interview.interviewee.name}}
+                                                    </a>
+                                                  </h4>
+                                                  </div>
+                                                  <div id="collapse{{ interview.pk }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{ interviewee.pk }}">
+                                                    <div class="panel-body">
+                                                      <div class="col email-entry">
+                                                        <div class="col-sm-6">
+                                                            Interview Link
                                                         </div>
-                                                        <div id="collapse{{ interview.pk }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{ interviewee.pk }}">
-                                                          <div class="panel-body">
-                                                            <div class="col email-entry">
-                                                              <div class="col-sm-6">
-                                                                  Interview Link
-                                                              </div>
-                                                              <div class="col-sm-6">
-                                                                <a href='#' class="link" id="{{ interview.token }}">Join Now</a>
-                                                              </div>
-                                                            </div>
-                                                            <div class="col email-entry">
-                                                              <div class="col-sm-6">
-                                                                Start Time
-                                                              </div>
-                                                              <div class="col-sm-6">
-                                                                {{ interview.startTime }}
-                                                              </div>
-                                                            </div>
-                                                            <div class="col email-entry">
-                                                              <div class="col-sm-6">
-                                                                End Time
-                                                              </div>
-                                                              <div class="col-sm-6">
-                                                                {{ interview.endTime }}
-                                                              </div>
-                                                            </div>
-                                                          </div>
+                                                        <div class="col-sm-6">
+                                                          <a href="{% url 'editor:editor' interview.token %}" class="link" id="{{ interview.token }}">Join Now</a>
                                                         </div>
                                                       </div>
-                                                    {% endif %}
+                                                      <div class="col email-entry">
+                                                        <div class="col-sm-6">
+                                                          Start Time
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                          {{ interview.startTime }}
+                                                        </div>
+                                                      </div>
+                                                      <div class="col email-entry">
+                                                        <div class="col-sm-6">
+                                                          End Time
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                          {{ interview.endTime }}
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                              </div>
                                             </div>
+                                          {% endfor %}
                                         </div>
                                         <div class="tab-pane fade" id="custom-nav-profile" role="tabpanel" aria-labelledby="custom-nav-profile-tab">
-                                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                                  {% if interview.startTime >= tomorrow %}
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading" role="tab" id="{{ interview.pk }}">
-                                                          <h4 class="panel-title">
-                                                          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ interview.pk }}" aria-expanded="true" aria-controls="collapse{{ interviewee.pk }}">
-                                                            {{interview.interviewee.name}}
-                                                          </a>
-                                                        </h4>
+                                          {% for interview in future_interview %}
+                                          {{ for.count }}
+                                          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                              <div class="panel panel-default">
+                                                  <div class="panel-heading" role="tab" id="{{ interview.pk }}">
+                                                    <h4 class="panel-title">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ interview.pk }}" aria-expanded="true" aria-controls="collapse{{ interviewee.pk }}">
+                                                      {{interview.interviewee.name}}
+                                                    </a>
+                                                  </h4>
+                                                  </div>
+                                                  <div id="collapse{{ interview.pk }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{ interviewee.pk }}">
+                                                    <div class="panel-body">
+                                                      <div class="col email-entry">
+                                                        <div class="col-sm-6">
+                                                            Interview Link
                                                         </div>
-                                                        <div id="collapse{{ interview.pk }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{ interviewee.pk }}">
-                                                          <div class="panel-body">
-                                                            <div class="col email-entry">
-                                                              <div class="col-sm-6">
-                                                                  Interview Link
-                                                              </div>
-                                                              <div class="col-sm-6">
-                                                                <a href='#' class="link" id="{{ interview.token }}">Join Now</a>
-                                                              </div>
-                                                            </div>
-                                                            <div class="col email-entry">
-                                                              <div class="col-sm-6">
-                                                                Start Time
-                                                              </div>
-                                                              <div class="col-sm-6">
-                                                                {{ interview.startTime }}
-                                                              </div>
-                                                            </div>
-                                                            <div class="col email-entry">
-                                                              <div class="col-sm-6">
-                                                                End Time
-                                                              </div>
-                                                              <div class="col-sm-6">
-                                                                {{ interview.endTime }}
-                                                              </div>
-                                                            </div>
-                                                          </div>
+                                                        <div class="col-sm-6">
+                                                          <a href="{% url 'editor:editor' interview.token %}" class="link" id="{{ interview.token }}">Join Now</a>
                                                         </div>
                                                       </div>
-                                                    {% endif %}
-                                            </div>
+                                                      <div class="col email-entry">
+                                                        <div class="col-sm-6">
+                                                          Start Time
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                          {{ interview.startTime }}
+                                                        </div>
+                                                      </div>
+                                                      <div class="col email-entry">
+                                                        <div class="col-sm-6">
+                                                          End Time
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                          {{ interview.endTime }}
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          {% endfor %}
                                         </div>
                                         <div class="tab-pane fade" id="custom-nav-contact" role="tabpanel" aria-labelledby="custom-nav-contact-tab">
+                                          {% for interview in past_interview %}
+                                          {{ for.count }}
                                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                                  {% if interview.startTime < today %}
                                                     <div class="panel panel-default">
                                                         <div class="panel-heading" role="tab" id="{{ interview.pk }}">
                                                           <h4 class="panel-title">
@@ -127,14 +128,6 @@
                                                         </div>
                                                         <div id="collapse{{ interview.pk }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{ interviewee.pk }}">
                                                           <div class="panel-body">
-                                                            <div class="col email-entry">
-                                                              <div class="col-sm-6">
-                                                                  Interview Link
-                                                              </div>
-                                                              <div class="col-sm-6">
-                                                                <a href='#' class="link" id="{{ interview.token }}">Join Now</a>
-                                                              </div>
-                                                            </div>
                                                             <div class="col email-entry">
                                                               <div class="col-sm-6">
                                                                 Start Time
@@ -154,10 +147,10 @@
                                                           </div>
                                                         </div>
                                                       </div>
-                                                    {% endif %}
                                             </div>
+                                            
+                                          {% endfor %}
                                         </div>
-                                        {% endfor %}
                                     </div>
 
                                 </div>

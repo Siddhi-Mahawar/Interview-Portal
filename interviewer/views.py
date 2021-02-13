@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from .forms import InterviewerForm
-from .utilities import createInterviewer, createRoom
+from .utilities import createInterviewer, createRoom, getInterviews
 from django.shortcuts import render, redirect
 from editor.forms import InterviewRoomForm
 from interviewer.models import Interviewer
@@ -27,12 +27,8 @@ def InterviewerCreate(request):
     return render(request, "interviewer/index.html", context)
 
 def HomePage(request):
-    today = timezone.now()
-    tomorrow = timezone.now()+timezone.timedelta(days=1)
-    interviewee = Interviewee.objects.all()
-    interviewer = Interviewer.objects.filter(email=request.session['email'])
-    interview = InterviewRoom.objects.filter(interviewer=interviewer[0]).order_by('startTime')
-    return render(request, 'interviewer/homepage.html', {'interviewees': interviewee, 'interview': interview, 'interviewer': interviewer[0],'today':today, 'tomorrow':tomorrow})
+    interview_rooms = getInterviews(request.session['email'])
+    return render(request, 'interviewer/homepage.html', {'today_interview': interview_rooms['today'], 'past_interview': interview_rooms['past'], 'future_interview': interview_rooms['future']})
 
 
 def profile(request):
@@ -42,19 +38,8 @@ def profile(request):
 
 
 def interviewsScheduled(request):
-    print(request.session['email'])
-    today = timezone.now()
-    tomorrow = timezone.now() + timezone.timedelta(days=1)
-    print(tomorrow)
-    interviewee = Interviewee.objects.all()
-    interviewer = Interviewer.objects.filter(email=request.session['email'])
-    interview = InterviewRoom.objects.filter(interviewer=interviewer[0]).order_by('startTime')
-    print(interviewee[0])
-    print(interview)
-    print(datetime.now().date())
-    return render(request, 'interviewer/interviewscheduled.html',
-                  {'interviewees': interviewee, 'interview': interview, 'interviewer': interviewer[0], 'today': today,
-                   'tomorrow': tomorrow})
+    interview_rooms = getInterviews(request.session['email'])
+    return render(request, 'interviewer/interviewscheduled.html', {'today_interview': interview_rooms['today'], 'past_interview': interview_rooms['past'], 'future_interview': interview_rooms['future']})
 
 
 def addinterviews(request):

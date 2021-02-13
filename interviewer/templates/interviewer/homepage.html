@@ -1,10 +1,6 @@
 {% extends 'interviewer/base.html' %}
 {% load tz %}
 {% load static %}
-{% block style %}
-
-
-{% endblock %}
 
 {% block body %}
 <header id="header" class="header">
@@ -17,176 +13,103 @@
 
 <div class="wrapper">
 
-    <div class="container-fluid">
-  <div class="row">
-    <div class="content mt-3">
-      <div class="col-sm-12">
-                <div class="alert  alert-success alert-dismissible fade show" role="alert">
-                    <span class="badge badge-pill badge-success">Success</span> Welcome Back to you Dashboard.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
-    </div>
-    <div class="col-sm-6 col-lg-3">
-      <div class="card text-white bg-flat-color-1">
-        <div class="card-body pb-0">
-          <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton1" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                        </div>
-          <p class="text-light">Interviews Today</p><br><br>
-          <h4 class="mb-0">
-            <span class="count">5</span>
-          </h4>
-          <br>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="content mt-3">
+        <div class="col-sm-12">
         </div>
       </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="card text-white bg-flat-color-1">
+          <div class="card-body pb-0">
+            <p class="text-light">Interviews Today</p><br><br>
+            <h4 class="mb-0">
+              <span class="count">{{ today_interview | length }}</span>
+            </h4>
+            <br>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-sm-6 col-lg-3">
+          <div class="card text-white bg-flat-color-3">
+              <div class="card-body pb-0">
+              <p class="text-light">Total Interviews Completed </p><br>
+              <h4 class="mb-0">
+                <span class="count">{{ past_interview | length }}</span>
+              </h4>
+              <br>
+
+              </div>
+          </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-3">
+        <div class="card text-white bg-flat-color-4">
+            <div class="card-body pb-0">
+              <p class="text-light">Total Interviews Scheduled </p><br>
+              <h4 class="mb-0">
+                    <span class="count">{{ future_interview | length }}</span>
+                </h4>
+              <br>
+            </div>
+        </div>
+      </div>
+              <!--/.col-->
     </div>
 
-    <!--/.col-->
-
-            <div class="col-sm-6 col-lg-3">
-                <div class="card text-white bg-flat-color-2">
-                    <div class="card-body pb-0">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton2" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
+    <div class="col-lg-12">
+      <div class="card">
+          <div class="card-header">
+              <h4>Today's Interviews</h4>
+          </div>
+          <div class="card-body">
+              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                  {% for interview in today_interview %}
+                  {{ for.count }}
+                      <div class="panel panel-default row">
+                          <div class="panel-heading" role="tab" id="{{ interview.pk }}">
+                            <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ interview.pk }}" aria-expanded="true" aria-controls="collapse{{ interviewee.pk }}">
+                              {{interview.interviewee.name}}
+                            </a>
+                          </h4>
+                          </div>
+                          <div id="collapse{{ interview.pk }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{ interviewee.pk }}">
+                            <div class="panel-body">
+                              <div class="col email-entry">
+                                <div class="col-sm-6">
+                                    Interview Link
                                 </div>
-                            </div>
-                        </div>
-
-                      <p class="text-light">Interviews Completed Today</p><br>
-                        <h4 class="mb-0">
-                            <span class="count">10468</span>
-                        </h4>
-                      <br>
-
-                    </div>
-                </div>
-            </div>
-            <!--/.col-->
-
-            <div class="col-sm-6 col-lg-3">
-                <div class="card text-white bg-flat-color-3">
-                    <div class="card-body pb-0">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton3" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="col-sm-6">
+                                  <a href="{% url 'editor:editor' interview.token %}" class="link" id="{{ interview.token }}">Join Now</a>
                                 </div>
-                            </div>
-                        </div>
-                    <p class="text-light">Total Interviews Completed </p><br>
-          <h4 class="mb-0">
-            <span class="count">20</span>
-          </h4>
-          <br>
-
-                    </div>
-                </div>
-            </div>
-            <!--/.col-->
-    <div class="col-sm-6 col-lg-3">
-                <div class="card text-white bg-flat-color-4">
-                    <div class="card-body pb-0">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton4" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
+                              </div>
+                              <div class="col email-entry">
+                                <div class="col-sm-6">
+                                  Start Time
                                 </div>
+                                <div class="col-sm-6">
+                                  {{ interview.startTime }}
+                                </div>
+                              </div>
+                              <div class="col email-entry">
+                                <div class="col-sm-6">
+                                  End Time
+                                </div>
+                                <div class="col-sm-6">
+                                  {{ interview.endTime }}
+                                </div>
+                              </div>
                             </div>
-                        </div>
-                      <p class="text-light">Total Interviews Scheduled </p><br>
-                      <h4 class="mb-0">
-                            <span class="count"></span>
-                        </h4>
-                      <br>
-
-                    </div>
-                </div>
-            </div>
-            <!--/.col-->
- </div>
-        <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Today's Interviews</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                        {% for interview in interview %}
-                                        {{ for.count }}
-                                                  {% if interview.startTime >= today and interview.startTime < tomorrow %}
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading" role="tab" id="{{ interview.pk }}">
-                                                          <h4 class="panel-title">
-                                                          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ interview.pk }}" aria-expanded="true" aria-controls="collapse{{ interviewee.pk }}">
-                                                            {{interview.interviewee.name}}
-                                                          </a>
-                                                        </h4>
-                                                        </div>
-                                                        <div id="collapse{{ interview.pk }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{ interviewee.pk }}">
-                                                          <div class="panel-body">
-                                                            <div class="col email-entry">
-                                                              <div class="col-sm-6">
-                                                                  Interview Link
-                                                              </div>
-                                                              <div class="col-sm-6">
-                                                                <a href='#' class="link" id="{{ interview.token }}">Join Now</a>
-                                                              </div>
-                                                            </div>
-                                                            <div class="col email-entry">
-                                                              <div class="col-sm-6">
-                                                                Start Time
-                                                              </div>
-                                                              <div class="col-sm-6">
-                                                                {{ interview.startTime }}
-                                                              </div>
-                                                            </div>
-                                                            <div class="col email-entry">
-                                                              <div class="col-sm-6">
-                                                                End Time
-                                                              </div>
-                                                              <div class="col-sm-6">
-                                                                {{ interview.endTime }}
-                                                              </div>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                    {% endif %}
-                                                    {% endfor %}
-                                            </div>
-
-                            </div>
-                        </div>
-                    </div>
+                          </div>
+                      </div>
+                  {% endfor %}
+              </div>
+          </div>
+      </div>
+    </div>
 
 
 </div>
