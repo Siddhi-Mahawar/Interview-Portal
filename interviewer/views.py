@@ -24,7 +24,7 @@ def InterviewerCreate(request):
         return redirect('Login:home')
 
     context['form'] = form
-    return render(request, "interviewer/index.html", context)
+    return render(request, "Login/add_interviewer.html", context)
 
 def HomePage(request):
     interview_rooms = getInterviews(request.session['email'])
@@ -32,7 +32,6 @@ def HomePage(request):
 
 
 def profile(request):
-    print(request.session['email'])
     interviewer = Interviewer.objects.filter(email=request.session['email'])
     return render(request, 'interviewer/profile.html', {'interviewer': interviewer[0]})
 

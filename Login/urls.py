@@ -28,6 +28,12 @@ urlpatterns = [
     # /resetpassword/token_value
     path('resetpassword/<token_value>', views.ResetPassword, name='password-reset'),
 
+    # /interviewers
+    path('interviewers', views.Interviewers, name='interviewers'),
+    
+    # /interviewees
+    path('interviewees', views.Interviewees, name='interviewees'),
+
     # /logout
     path('logout', views.Logout, name='logout'),
     

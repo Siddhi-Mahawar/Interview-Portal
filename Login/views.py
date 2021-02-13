@@ -61,10 +61,10 @@ def HomePage(request):
     if 'email' in request.session:
         if request.session['valid'] is False:
             return redirect('Login:admin-email-verification') 
-        else:    
-            interviewers = Interviewer.objects.all()
-            interviewees = Interviewee.objects.all()
-            return render(request, "Login/home.html", {'interviewers' : interviewers, 'interviewees' : interviewees }) 
+        else:
+            admin = CompanyAdmin.objects.get(email=request.session['email'])
+            print(admin)
+            return render(request, "Login/profile.html", {'admin' : admin }) 
     else:
         return redirect('Login:login')
 
@@ -206,3 +206,23 @@ def Logout(request):
         pass
 
     return redirect('Login:login')
+
+
+
+def Interviewers(request):
+
+    if 'email' in request.session:
+        interviewers = Interviewer.objects.filter(admin_email=request.session['email'])
+        print (interviewers)
+        return render(request, "Login/interviewers.html", {'interviewers' : interviewers}) 
+    else:
+        return redirect('Login:login')
+
+
+def Interviewees(request):
+
+    if 'email' in request.session:
+        interviewees = Interviewee.objects.filter(admin_email=request.session['email'])
+        return render(request, "Login/interviewees.html", {'interviewees' : interviewees}) 
+    else:
+        return redirect('Login:login')

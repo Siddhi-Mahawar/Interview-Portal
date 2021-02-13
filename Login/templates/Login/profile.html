@@ -1,0 +1,80 @@
+{% extends 'Login/base_home.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %}Admin Home Page{% endblock %}
+
+{% block nav %}
+
+  <li>
+    <a class="scroll-link" href="{% url 'Login:home' %}" id = "profile"><i class="fa fa-home" style="padding-right: 2px;"></i>Profile</a>
+  </li>
+  <li>
+      <a class="scroll-link" href="{% url 'Login:interviewers' %}" id = "interviewers"><i class="fa fa-home" style="padding-right: 2px;"></i>Interviewers</a>
+  </li>
+  <li>
+    <a class="scroll-link" href="{% url 'Login:interviewees' %}" id = "interviewees"><i class="fa fa-home" style="padding-right: 2px;"></i>Interviewees</a>
+  </li>
+  <li  class="active">
+    <a class="scroll-link" href="{% url 'interviewer:signup' %}" id = "addInterviewer"><i class="fa fa-home" style="padding-right: 2px;"></i>Add Interviewer</a>
+  </li>
+  <li>
+     <a class="scroll-link" href="{% url 'interviewee:signup' %}" id = "signup"> <i class="fa fa-home"></i>Add Interviewee </a>
+  </li>
+  <li>
+    <a class="scroll-link" href="{% url 'Login:logout' %}" id = "logout"><i class="fa fa-home" style="padding-right: 2px;"></i>Logout</a>
+  </li>
+{% endblock %}
+
+{% block body %}
+    <div class="breadcrumbs" style="padding-top: 2%;">
+          <div class="page-header">
+              <div class="page-title">
+                <center>
+                  <p style="font-size: 36px;">Profile</p>
+                </center>
+              </div>
+          </div>
+    </div>
+    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mx-auto d-block">
+                                    <img class="rounded-circle mx-auto d-block" src="{% static 'home/images/admin.jpg'%}" alt="Card image cap">
+                                    <h5 class="text-sm-center mt-2 mb-1">{{ admin.name }}</h5>
+                                    <!-- <div class="location text-sm-center">{{ admin.position }}</div> -->
+                                </div>
+                                <hr>
+                                <div class="card-text">
+
+
+                                        <div class="col email-entry">
+                                          <div class="col-sm-6">
+                                            Email
+                                          </div>
+                                          <div class="col-sm-6">
+                                            {{ admin.email }}
+                                          </div>
+                                        </div>
+                                        <div class="col email-entry">
+                                          <div class="col-sm-6">
+                                            Phone
+                                          </div>
+                                          <div class="col-sm-6">
+                                            {{ admin.phone }}
+                                          </div>
+                                        </div>
+                                        <div class="col email-entry">
+                                          <div class="col-sm-6">
+                                            Company Name
+                                          </div>
+                                          <div class="col-sm-6">
+                                            {{ admin.company_name }}
+                                          </div>
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+{% endblock %}

@@ -21,7 +21,7 @@ def IntervieweeCreate(request):
         return redirect('Login:home')
 
     context['form']= form 
-    return render(request, "interviewee/index.html", context)
+    return render(request, "Login/add_interviewee.html", context)
 
 def HomePage(request):
 
