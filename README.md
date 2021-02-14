@@ -1,8 +1,6 @@
 # Interview-Portal
 
 # Overview
-- [Interview-Portal](#interview-portal)
-- [Overview](#overview)
 - [Introduction](#introduction)
 - [Goals](#goals)
 - [Structure](#structure)
