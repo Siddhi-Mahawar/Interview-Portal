@@ -51,7 +51,8 @@ def addinterviews(request):
     # check if form data is valid 
     if form.is_valid(): 
         token = get_random_string(length=32)
-        createRoom(form, request.session['email'], token)  
+        createRoom(form, request.session['email'], token)
+        print('finished registering person')
         return redirect('interviewer:home')
 
 

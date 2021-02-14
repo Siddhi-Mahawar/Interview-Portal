@@ -7,10 +7,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.http import Http404
 from Login.forms import CompanyAdminForm, LoginForm, VerificationForm, PasswordResetForm, PasswordResetRequestForm
-from Login.helper import *
+from Login.helper import send_activation_email, checkTimestamp, ten_minutes_hence, send_reset_email
 from Login.utilities import admin_Login, interviewer_Login, interviewee_Login
 from django.utils.crypto import get_random_string
-from django.contrib.auth.hashers import  make_password
+from django.contrib.auth.hashers import make_password
 
 
 def LoginView(request):
@@ -111,7 +111,7 @@ def AdminEmailVerification(request):
         form = VerificationForm(email_id=admin_email_id)
 
         context['form'] = form
-        return render(request, "Login/verify_email.html", context) 
+        return render(request, "Login/verification_form.html", context)
     
     if request.method == "POST":
 
@@ -124,6 +124,7 @@ def AdminEmailVerification(request):
         try:
             verify_row = Verification.objects.get(admin_email = admin)
         except Verification.DoesNotExist:
+            print('sending stuff')
             verify_row = Verification()
             verify_row.admin_email = admin
         verify_row.token = token

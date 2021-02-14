@@ -2,6 +2,28 @@
 {% load tz %}
 {% load static %}
 
+{% block style %}
+<style>
+    .panel-title a{
+        padding: 10px;
+        color: #0d152a;
+        font-weight: bolder;
+    }
+    .panel-body{
+        padding-bottom: 7%;
+    }
+    hr {
+      border: 0;
+      clear:both;
+      display:block;
+      width: 100%;
+      background-color: #0d152a;
+      height: 1px;
+    }
+
+</style>
+{% endblock %}
+
 {% block body %}
 <header id="header" class="header">
         <div class="">
@@ -22,7 +44,7 @@
       <div class="col-sm-6 col-lg-3">
         <div class="card text-white bg-flat-color-1">
           <div class="card-body pb-0">
-            <p class="text-light">Interviews Today</p><br><br>
+            <p class="text-light">Interviews Today</p><br>
             <h4 class="mb-0">
               <span class="count">{{ today_interview | length }}</span>
             </h4>
@@ -68,16 +90,18 @@
               <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                   {% for interview in today_interview %}
                   {{ for.count }}
-                      <div class="panel panel-default row">
+                      <div class="panel panel-default">
                           <div class="panel-heading" role="tab" id="{{ interview.pk }}">
                             <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ interview.pk }}" aria-expanded="true" aria-controls="collapse{{ interviewee.pk }}">
                               {{interview.interviewee.name}}
+                                <i class="fa fa-caret-down"></i>
                             </a>
                           </h4>
                           </div>
                           <div id="collapse{{ interview.pk }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{ interviewee.pk }}">
                             <div class="panel-body">
+                                <hr>
                               <div class="col email-entry">
                                 <div class="col-sm-6">
                                     Interview Link
@@ -105,6 +129,7 @@
                             </div>
                           </div>
                       </div>
+                        <hr>
                   {% endfor %}
               </div>
           </div>
