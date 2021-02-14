@@ -1,4 +1,156 @@
 {% extends 'interviewee/base.html' %}
+{% load static %}
+{% block style %}
+
+<style>
+
+#accordion{
+  color: white;
+  font-size: 20px;
+}
+
+#add-interviewer{
+
+  position: absolute;
+  right: 4.5%;
+  bottom: 6.5%;
+  width: 5%;
+
+}
+
+
+#add-interviewee{
+
+  position: absolute;
+  right: 4.5%;
+  bottom: 6.5%;
+  width: 5%;
+
+}
+
+.email-entry{
+  padding-top: 10px;
+}
+
+a {
+  color: white;
+}
+
+div {
+  color:teal;
+}
+
+.panel-default>.panel-heading {
+  background-color: black;
+  padding: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.panel-default>.panel-heading a {
+  display: block;
+  padding: 10px 15px;
+}
+
+.panel-default>.panel-heading a:after {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  float: right;
+  transition: transform .25s linear;
+  -webkit-transition: -webkit-transform .25s linear;
+}
+
+.panel-default>.panel-heading a[aria-expanded="true"] {
+  background-color: black;
+}
+
+.panel-default>.panel-heading a[aria-expanded="true"]:after {
+  content: "\2212";
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.panel-default>.panel-heading a[aria-expanded="false"]:after {
+  content: "\002b";
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+</style>
+
+{% endblock %}
+
+
 {% block body %}
-    <div class="container"><label>This is the profile page</label></div>
+
+
+<div class="wrapper">
+
+  <section id="section-profile">
+
+    <div class="breadcrumbs" style="padding-top: 2%;">
+          <div class="page-header">
+              <div class="page-title">
+                <center>
+                  <p style="font-size: 36px;">Profile</p>
+                </center>
+              </div>
+          </div>
+    </div>
+    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mx-auto d-block">
+                                    <img class="rounded-circle mx-auto d-block" src="{% static 'home/images/admin.jpg'%}" alt="Card image cap">
+                                    <h5 class="text-sm-center mt-2 mb-1">{{ interviewee.name }}</h5>
+                                </div>
+                                <hr>
+                                <div class="card-text">
+
+
+                                        <div class="col email-entry">
+                  <div class="col-sm-6">
+                    Email
+                  </div>
+                  <div class="col-sm-6">
+                    {{ interviewee.email }}
+                  </div>
+                </div>
+                <div class="col email-entry">
+                  <div class="col-sm-6">
+                    Phone
+                  </div>
+                  <div class="col-sm-6">
+                    {{ interviewee.phone }}
+                  </div>
+                </div>
+                <div class="col email-entry">
+                  <div class="col-sm-6">
+                    Resume
+                  </div>
+                  <div class="col-sm-6">
+                    {{ interviewee.resume_link }}
+                  </div>
+                </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+  </section>
+
+</div>
+
+
 {% endblock %}

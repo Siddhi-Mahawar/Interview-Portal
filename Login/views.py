@@ -7,10 +7,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.http import Http404
 from Login.forms import CompanyAdminForm, LoginForm, VerificationForm, PasswordResetForm, PasswordResetRequestForm
-from Login.helper import *
+from Login.helper import send_activation_email, checkTimestamp, ten_minutes_hence, send_reset_email
 from Login.utilities import admin_Login, interviewer_Login, interviewee_Login
 from django.utils.crypto import get_random_string
-from django.contrib.auth.hashers import  make_password
+from django.contrib.auth.hashers import make_password
 
 
 def LoginView(request):
@@ -54,19 +54,27 @@ def LoginView(request):
                 return redirect('interviewee:home')
         
     context['form']= form 
-    return render(request, "Login/index.html", context) 
+    return render(request, "Login/login.html", context) 
 
 def HomePage(request):
 
-    if 'email' in request.session:
-        if request.session['valid'] is False:
-            return redirect('Login:admin-email-verification') 
-        else:    
-            interviewers = Interviewer.objects.all()
-            interviewees = Interviewee.objects.all()
-            return render(request, "Login/detail.html", {'interviewers' : interviewers, 'interviewees' : interviewees }) 
+    print (request.session['user_type'])
+    if 'user_type' in request.session:
+        if request.session['user_type'] == "Interviewer":
+            return redirect('interviewer:home')
+        elif request.session['user_type'] == "Interviewee":
+            return redirect('interviewee:home')
+        else:
+            if request.session['valid'] is False:
+                return redirect('Login:admin-email-verification') 
+            else:
+                admin = CompanyAdmin.objects.get(email=request.session['email'])
+                print(admin)
+                return render(request, "Login/profile.html", {'admin' : admin }) 
     else:
-        return redirect('Login:index')
+        return redirect('Login:login')
+
+
 
 def AdminCreate(request):
 
@@ -81,16 +89,16 @@ def AdminCreate(request):
     # check if form data is valid 
     if form.is_valid(): 
         form.save() 
-        return redirect('Login:index')
+        return redirect('Login:login')
 
     context['form'] = form
-    return render(request, "Login/companyadmin_form.html", context) 
+    return render(request, "Login/signup.html", context) 
 
 
 def AdminEmailVerification(request):
 
     if not 'email' in request.session:
-        return redirect('Login:index')
+        return redirect('Login:login')
 
     if request.session['valid']:
         return redirect('Login:home')
@@ -103,7 +111,7 @@ def AdminEmailVerification(request):
         form = VerificationForm(email_id=admin_email_id)
 
         context['form'] = form
-        return render(request, "Login/verification_form.html", context) 
+        return render(request, "Login/verification_form.html", context)
     
     if request.method == "POST":
 
@@ -116,6 +124,7 @@ def AdminEmailVerification(request):
         try:
             verify_row = Verification.objects.get(admin_email = admin)
         except Verification.DoesNotExist:
+            print('sending stuff')
             verify_row = Verification()
             verify_row.admin_email = admin
         verify_row.token = token
@@ -137,7 +146,7 @@ def EmailVerify(request, token_value):
         request.session['email'] = admin.email
         request.session['valid'] = admin.is_active
 
-    return redirect('Login:index')
+    return redirect('Login:login')
 
 def ResetPasswordRequest(request):
 
@@ -148,7 +157,7 @@ def ResetPasswordRequest(request):
 
     # check if form data is valid
     if form.is_valid():
-            
+
             token = get_random_string(length=32)
             to_email_id = form.cleaned_data['email']
             send_reset_email(to_email_id, token)
@@ -164,10 +173,10 @@ def ResetPasswordRequest(request):
             passwordresetrow.token = token
             passwordresetrow.timestamp = ten_minutes_hence()
             passwordresetrow.save()
-            return redirect('Login:password-reset-request')
+            return redirect('Login:login')
 
     context['form'] = form
-    return render(request, "Login/passwordresetrequest.html", context)
+    return render(request, "Login/forgot_password.html", context)
 
 def ResetPassword(request, token_value):
 
@@ -181,13 +190,48 @@ def ResetPassword(request, token_value):
         
         print (form.cleaned_data)
         if form.cleaned_data['password'] == form.cleaned_data['confirm_password']:
-            reset_password_object = Passwordrequest.objects.get(token= token_value)
-            
-            if checkTimestamp(reset_password_object.timestamp):
-                admin = reset_password_object.admin_email
-                admin.password = form.cleaned_data['password']
-                admin.save()
-                return redirect('Login:index')
-            
+            try:
+                reset_password_object = Passwordrequest.objects.get(token= token_value)
+                if checkTimestamp(reset_password_object.timestamp):
+                    admin = reset_password_object.admin_email
+                    admin.password = form.cleaned_data['password']
+                    admin.save()
+                    return redirect('Login:login')
+            except Passwordrequest.DoesNotExist:
+                return redirect('Login:login')
+
     context['form'] = form
-    return render(request, "Login/passwordreset.html", context) 
+    return render(request, "Login/update_password.html", context) 
+
+
+def Logout(request):
+    
+    try:
+        del request.session['email']
+        del request.session['user_type']
+        del request.session['valid']
+        del request.session['interviewee_pk']
+    except KeyError:
+        pass
+
+    return redirect('Login:login')
+
+
+
+def Interviewers(request):
+
+    if 'email' in request.session:
+        interviewers = Interviewer.objects.filter(admin_email=request.session['email'])
+        print (interviewers)
+        return render(request, "Login/interviewers.html", {'interviewers' : interviewers}) 
+    else:
+        return redirect('Login:login')
+
+
+def Interviewees(request):
+
+    if 'email' in request.session:
+        interviewees = Interviewee.objects.filter(admin_email=request.session['email'])
+        return render(request, "Login/interviewees.html", {'interviewees' : interviewees}) 
+    else:
+        return redirect('Login:login')

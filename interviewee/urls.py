@@ -7,16 +7,12 @@ app_name = "interviewee"
 urlpatterns = [
     
     # /interviewer/Signup
-    path('/signup/', views.IntervieweeCreate, name='signup'),
+    path('signup', views.IntervieweeCreate, name='signup'),
 
-    path('/home', views.HomePage, name='home'),
+    path('home', views.Profile, name='home'),
 
-    path('/details', views.IntervieweeDetails, name='details'),
+    path('details', views.IntervieweeDetails, name='details'),
 
-    path('/profile', views.profile, name='profile'),
-
-    path('/interviewsScheduled', views.interviewsScheduled, name='interviews-scheduled'),
-
-    path('/interviewRequests', views.interviewRequests, name='interview-requests'),
+    path('interviewsScheduled', views.interviewsScheduled, name='interviews-scheduled'),
 
 ]

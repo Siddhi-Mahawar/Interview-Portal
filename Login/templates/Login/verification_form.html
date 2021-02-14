@@ -1,22 +1,14 @@
-{% extends 'Login/base.html' %}
+{% extends 'Login/base_form.html' %}
 {% load widget_tweaks %}
 {% block title %}Verify Email{% endblock %}
-{% block albums_active %}active{% endblock %}
 
 {% block body %}
-    <span class="login100-form-title p-b-41">
-        {% block form_title %} Account Verification {% endblock %}
-    </span>
-<form method="post" class="login100-form validate-form p-b-33 p-t-5">
+<form method="POST">
     {% csrf_token %}
-    <div class="wrap-input100 validate-input form-group">
-        {{ form.email | add_class:'input100' }}
-        <span class="focus-input100" data-placeholder="&#xe818;"></span>
+    <div class="form-group">
+        <label>Email</label>
+        {{ form.email | add_class:'form-control' }}
     </div>
-    <div class="container-login100-form-btn m-t-32">
-        <button class="login100-form-btn">
-            Submit
-        </button>
-    </div>
+    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Send Verification Mail</button>
 </form>
 {% endblock %}

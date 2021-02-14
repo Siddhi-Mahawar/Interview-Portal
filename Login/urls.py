@@ -6,25 +6,35 @@ from .import views
 app_name = "Login"
 
 urlpatterns = [
-    # /Login/
-    path('/', views.LoginView, name='index'),
+
+    # /
+    path('', views.LoginView, name='login'),
     
-    # /Login/person_id
-    path('/home', views.HomePage, name='home'),
+    # /home
+    path('home', views.HomePage, name='home'),
 
-    # /Login/Signup
-    path('/signup/', views.AdminCreate, name='company-Admin-add'),
+    # /signup
+    path('signup/', views.AdminCreate, name='company-Admin-add'),
 
-    # /Login/Verify
-    path('/verify/', views.AdminEmailVerification, name='admin-email-verification'),
+    # /verify
+    path('verify/', views.AdminEmailVerification, name='admin-email-verification'),
 
-    # /Login/Verify/id
-    path('/verify/<token_value>', views.EmailVerify, name='admin-email-verify'),
+    # /verify/token_value
+    path('verify/<token_value>', views.EmailVerify, name='admin-email-verify'),
 
-    # /Login/passreq
-    path('/resetpassword/', views.ResetPasswordRequest, name='password-reset-request'),
+    # /resetpassword
+    path('resetpassword/', views.ResetPasswordRequest, name='password-reset-request'),
 
-    # /Login/passreq
-    path('/resetpassword/<token_value>', views.ResetPassword, name='password-reset'),
+    # /resetpassword/token_value
+    path('resetpassword/<token_value>', views.ResetPassword, name='password-reset'),
+
+    # /interviewers
+    path('interviewers', views.Interviewers, name='interviewers'),
+    
+    # /interviewees
+    path('interviewees', views.Interviewees, name='interviewees'),
+
+    # /logout
+    path('logout', views.Logout, name='logout'),
     
 ]

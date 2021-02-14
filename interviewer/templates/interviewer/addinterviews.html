@@ -1,6 +1,73 @@
 {% extends 'interviewer/base.html' %}
+{% load widget_tweaks %}
+{% load tz %}
+{% load static %}
+
 {% block body %}
-    <div class="container"><label>This is the page to add interviews</label></div>
-<!--there should be form here. The fields to be asked are position for interview,
-interviewee select dropdown, date selection, slot selection, topic of interview and submit button-->
-{% endblock %}
+    <header id="header" class="header">
+        <div class="">
+            <div class="header">
+                <h2>Add Interview</h2>
+            </div>
+        </div>
+    </header>
+
+    <div class="content mt-3">
+        <div class="animated fadeIn">
+
+            <div class="row">
+
+                <div class="col-xs-6 col-sm-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Add Interview Room</strong>
+                        </div>
+                        <div class="card-body card-block">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label class=" form-control-label">Start Date and Time input</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                        {{ form.startTime | add_class:'form-control' }}
+                                    </div>
+                                    <small class="form-text text-muted">ex. YYYY-MM-DD HH:MM:SS</small>
+                                </div>
+                                <div class="form-group">
+                                    <label class=" form-control-label">End Date and Time input</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                        {{ form.endTime | add_class:'form-control' }}
+                                    </div>
+                                    <small class="form-text text-muted">ex. YYYY-MM-DD HH:MM:SS</small>
+                                </div>
+                                <div class="form-group">
+                                    <label class=" form-control-label">Interviewee Identification Number</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                        {{ form.interviewee | add_class:'form-control' }}
+                                    </div>
+                                    <small class="form-text text-muted">ex. 9999999</small>
+                                </div>
+                                <div class="form-group">
+                                    <label class=" form-control-label">Question</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-question-circle"></i></div>
+                                        {{ form.question | add_class:'form-control' }}
+                                    </div>
+                                    <small class="form-text text-muted">Find Sqrt of given number n</small>
+                                </div>
+                                <button type="submit" class="btn btn-lg btn-info btn-block">
+                                    <i class="fa fa-plus fa-lg"></i>&nbsp;
+                                    <span id="payment-button-amount">Add</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- .animated -->
+    </div><!-- .content -->
+
+    {% endblock %}

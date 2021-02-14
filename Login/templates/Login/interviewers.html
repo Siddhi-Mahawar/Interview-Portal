@@ -1,0 +1,79 @@
+{% extends 'Login/base_home.html' %}
+{% load widget_tweaks %}
+{% block title %}Interviewers{% endblock %}
+
+{% block nav %}
+
+    <li>
+    <a class="scroll-link" href="{% url 'Login:home' %}" id = "profile"><i class="fa fa-home" style="padding-right: 2px;"></i>Profile</a>
+    </li>
+    <li class="active">
+        <a class="scroll-link" href="{% url 'Login:interviewers' %}" id = "interviewers"><i class="fa fa-home" style="padding-right: 2px;"></i>Interviewers</a>
+    </li>
+    <li>
+        <a class="scroll-link" href="{% url 'Login:interviewees' %}" id = "interviewees"><i class="fa fa-home" style="padding-right: 2px;"></i>Interviewees</a>
+        </li>
+    <li>
+        <a class="scroll-link" href="{% url 'interviewer:signup' %}" id = "addInterviewer"><i class="fa fa-home" style="padding-right: 2px;"></i>Add Interviewer</a>
+    </li>
+    <li>
+        <a class="scroll-link" href="{% url 'interviewee:signup' %}" id = "addInterviewee"> <i class="fa fa-home"></i>Add Interviewee </a>
+    </li>
+    <li>
+        <a class="scroll-link" href="{% url 'Login:logout' %}" id = "logout"><i class="fa fa-home" style="padding-right: 2px;"></i>Logout</a>
+    </li>
+{% endblock %}
+
+{% block body %}
+<header id="header" class="header">
+    <div class="">
+        <div class="header">
+            <h2>Interviewers</h2>
+        </div>
+    </div>
+</header>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">Login Credentials</strong>
+                    </div>
+                    <div class="card-body">
+                        <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Password</th>
+                                    <th>Designation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for interviewer in interviewers %}
+                                {{ for.count }}
+                                <tr>
+                                    <td>{{ interviewer.name }}</td>
+                                    <td>{{ interviewer.email }}</td>
+                                    <td>{{ interviewer.password }}</td>
+                                    <td>{{ interviewer.position }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div><!-- .animated -->
+</div><!-- .content -->
+
+
+
+
+{% endblock %}

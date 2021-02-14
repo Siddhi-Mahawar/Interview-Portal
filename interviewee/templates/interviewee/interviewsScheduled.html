@@ -1,0 +1,64 @@
+{% extends 'interviewee/base.html' %}
+{% block body %}
+    <div class="breadcrumbs" style="padding-top: 2%;">
+          <div class="page-header">
+              <div class="page-title">
+                <center>
+                  <p style="font-size: 36px;">Interviews Scheduled</p>
+                </center>
+              </div>
+          </div>
+    </div>
+    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Today's Interviews</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    {% for interview in interviews %}
+                                      {{ for.count }}
+                                      <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="{{ interview.pk }}">
+                                          <h4 class="panel-title">
+                                          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ interview.pk }}" aria-expanded="true" aria-controls="collapse{{ interviewee.pk }}">
+                                            {{interview.interviewer.name}}
+                                          </a>
+                                        </h4>
+                                        </div>
+                                        <div id="collapse{{ interview.pk }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{ interviewee.pk }}">
+                                          <div class="panel-body">
+                                            <div class="col email-entry">
+                                              <div class="col-sm-6">
+                                                  Interview Link
+                                              </div>
+                                              <div class="col-sm-6">
+                                                <a href="{% url 'editor:editor' interview.token %}" class="link" id="{{ interview.token }}">Join Now</a>
+                                              </div>
+                                            </div>
+                                            <div class="col email-entry">
+                                              <div class="col-sm-6">
+                                                Start Time
+                                              </div>
+                                              <div class="col-sm-6">
+                                                {{ interview.startTime }}
+                                              </div>
+                                            </div>
+                                            <div class="col email-entry">
+                                              <div class="col-sm-6">
+                                                End Time
+                                              </div>
+                                              <div class="col-sm-6">
+                                                {{ interview.endTime }}
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+    </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+{% endblock %}

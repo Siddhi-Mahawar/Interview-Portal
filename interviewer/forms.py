@@ -11,6 +11,6 @@ class InterviewerForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'placeholder': 'Enter Full Name'}),
             'email': forms.EmailInput(attrs={'placeholder': 'Enter Email Id'}),
             'phone': forms.TextInput(attrs={'placeholder': 'Enter Phone Number'}),
-            'company_name': forms.EmailInput(attrs={'placeholder': 'Enter Company'}),
+            'company_name': forms.TextInput(attrs={'placeholder': 'Enter Company'}),
             'position': forms.TextInput(attrs={'placeholder': 'Enter Position'}),
         }

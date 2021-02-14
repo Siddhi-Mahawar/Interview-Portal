@@ -1,0 +1,74 @@
+ html { height: 100%; background-color: black !important;}
+ body { margin: 0; height: 100%; position: relative; background-color: black !important;}
+      /* Height / width / positioning can be customized for your use case.
+         For demo purposes, we make firepad fill the entire browser. */
+ #firepad-container {
+     padding: 1%;
+      width: 50%;
+      height: 70%;
+      float: left;
+      /* background-color: #454545; */
+ }
+
+ #firepad-container1 {
+      /* padding: 1%; */
+      float: right;
+      width: 50%;
+      height: 100%;
+      /* background-color: #454545; */
+
+ }
+#freeze{
+    float: left;
+}
+
+#input {
+    padding: 1% 0;
+    width: 50%;
+    height: 12.5%;
+    float: left;
+    /* background-color: #454545; */
+    max-height: 35%;
+ }
+#output {
+    padding: 1% 0;
+    width: 50%;
+    height: 12.5%;
+    float: right;
+    /* background-color: #454545; */
+    max-height: 34%;
+ }
+
+
+
+ #dropdown{
+    float: left;
+    /* background-color: #454545; */
+    width: 50%;
+ }
+#run {
+    float: right;
+    margin: 0 10px;
+}
+#freeze {
+    float: right;
+    margin: 0 10px;
+}
+#language{
+    float: left;
+    max-width: max-content;
+}
+
+.CodeMirror{
+    background-color: #394049 !important;
+    color: whitesmoke !important;
+    border: none;
+    font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+    height: 100%;
+    max-height: 100%;
+}
+.CodeMirror-cursor { border-left: 1px solid #c1c1c1; }
+.CodeMirror-gutters { background: #c1c1c1; padding: 1px solid #c1c1c1; }
+.powered-by-firepad{
+    display:none;
+}

@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import IntervieweeForm, IntervieweeDetailsForm
-from .utilities import createInterviewee, UpdateIntervieweeDetails
+from .utilities import createInterviewee, UpdateIntervieweeDetails, getInterviews
+from interviewer.models import Interviewer
+from interviewee.models import Interviewee
+from editor.models import InterviewRoom
+import json
 
-# Create your views here.
 def IntervieweeCreate(request):
     context = {} 
   
@@ -17,38 +20,27 @@ def IntervieweeCreate(request):
         return redirect('Login:home')
 
     context['form']= form 
-    return render(request, "interviewee/index.html", context)
+    return render(request, "Login/add_interviewee.html", context)
 
-def HomePage(request):
+def Profile(request):
 
-    if request.session['valid'] is False:
-        return redirect('interviewee:details')
-
-    print (request.session['email'])
-    # return HttpResponse("This is home page of interviewee")
-    return render(request, 'interviewee/homepage.html')
-
-
-def profile(request):
-    return render(request, 'interviewee/profile.html')
-
+    if 'email' in request.session:
+        if request.session['valid'] is False:
+            return redirect('interviewee:details') 
+        else:
+            interviewee = Interviewee.objects.get(pk = request.session['interviewee_pk'])
+            return render(request, 'interviewee/profile.html', {'interviewee': interviewee })
+    return redirect('Login:login')
 
 def interviewsScheduled(request):
-    return render(request, 'interviewee/interviewsscheduled.html')
+    interviews = getInterviews(request.session['interviewee_pk'])['today']
+    print (interviews)
+    return render(request, 'interviewee/interviewsScheduled.html',{'interviews': interviews})
 
-
-def interviewRequests(request):
-    return render(request, 'interviewee/interviewrequests.html')
-
-# Create your views here.
 def IntervieweeDetails(request):
     
     if request.session['valid']:
         return redirect('interviewee:home')
-
-    print (request.session['email'])
-    print (request.session['user_type'])    
-    print (request.session['valid'])
 
     context = {} 
   
