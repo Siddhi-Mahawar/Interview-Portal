@@ -71,15 +71,19 @@ Company Admin can add interviewers as well as interviewees. Interviewer can crea
 
 # Demos
 Admin Sign-Up Page
+
 ![Admin Sign-Up page](Demo/Signup%20Admin.gif)
 
 Interviewer Dashboard Page
+
 ![Interviewer Dashboard](Demo/InterviewerDashboard%20to%20editor.gif)
 
 Interviewee side Editor
+
 ![Interviewee Writing page](Demo/Intervieweewriting%20code.gif)
 
 Interviewer Writing and highlighting in the same space
+
 ![Interviewer Writing page](Demo/Interviewer%20writing.gif)
 
 
