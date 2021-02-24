@@ -70,6 +70,18 @@ Company Admin can add interviewers as well as interviewees. Interviewer can crea
 5. Login on the link `http://127.0.0.1:8000/`
 
 # Demos
+Admin Sign-Up Page
+![Admin Sign-Up page](Demo/Signup%20Admin.gif)
+
+Interviewer Dashboard Page
+![Interviewer Dashboard](Demo/InterviewerDashboard%20to%20editor.gif)
+
+Interviewee side Editor
+![Admin Sign-Up page](Demo/Intervieweewriting%20code.gif)
+
+Interviewer Writing and highlighting in the same space
+![Admin Sign-Up page](Demo/Interviewer%20writing.gif)
+
 
 # Technologies Used
 
