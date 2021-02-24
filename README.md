@@ -77,10 +77,10 @@ Interviewer Dashboard Page
 ![Interviewer Dashboard](Demo/InterviewerDashboard%20to%20editor.gif)
 
 Interviewee side Editor
-![Admin Sign-Up page](Demo/Intervieweewriting%20code.gif)
+![Interviewee Writing page](Demo/Intervieweewriting%20code.gif)
 
 Interviewer Writing and highlighting in the same space
-![Admin Sign-Up page](Demo/Interviewer%20writing.gif)
+![Interviewer Writing page](Demo/Interviewer%20writing.gif)
 
 
 # Technologies Used
